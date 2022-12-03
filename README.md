@@ -7,6 +7,7 @@ There is no starting stock in each machine and stock management, if there is eno
 
 Database
 []Tables
+
 []Quaries that may be needed
 1. Show product's order history and sale history with date, machine_id product's name and quantity 
 
