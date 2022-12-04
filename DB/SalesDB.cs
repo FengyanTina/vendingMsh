@@ -9,7 +9,7 @@ public class SaleDB
 
     public SaleDB()
     {
-        connection = new MySqlConnection(("Server=localhost;Database=videoteket;Uid=Tina;Pwd=123456;"));
+        connection = new MySqlConnection(("Server=localhost;Database=vendingmachine;Uid=Tina;Pwd=123456;"));
 
     }
       public void Open()

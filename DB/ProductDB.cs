@@ -7,21 +7,31 @@ public class ProductDB
 
     public ProductDB()
     {
-        connection = new MySqlConnection(("Server=localhost;Database=videoteket;Uid=Tina;Pwd=123456;"));
-
+      connection = new MySqlConnection(("Server=localhost;Database=vendingmachine;Uid=Tina;Pwd=123456;"));
     }
-      public void Open()
+
+    public void Connect()
+    {
+        
+    }
+    public void Open()
     {
         try
         {
-           if(connection.State != ConnectionState.Open)
-            connection.Open(); 
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
         }
         catch (Exception e)
         {
-            
-            throw new FieldAccessException("DB is not accessable",e);
+
+            throw new FieldAccessException("DB is not accessable", e);
         }
     }
-    
+
+    public List<Product> GetProducts()
+    {
+        Open();
+        var products = connection.Query<Product>("SELECT product_id, product_name FROM products;").ToList();
+        return products;
+    }
 }
