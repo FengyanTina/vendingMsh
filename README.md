@@ -20,7 +20,7 @@ INNER JOIN sales ON sales.sale_id = saledetails.sale_id)
 INNER JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)
 GROUP BY refillorders.machine_id,product_id;
 
-SELECT products.product_id,orderdetails.orderDetail_id,refillorders.order_date,refillorders.machine_id,orderdetails.order_quantity,saledetails.sale_id,sales.sale_date,sales.machine_id,saledetails.sale_quantity 
+SELECT products.product_id,orderdetails.orderDetail_id,refillorders.order_date,refillorders.machine_id,orderdetails.order_quantity,saledetails.sale_id,sales.sale_date,sales.machine_id,saledetails.sale_quantity,(orderdetails.order_quantity-sale_quantity) 
 FROM ((((products 
 LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
 LEFT JOIN orderdetails ON products.product_id = orderdetails.product_id)
