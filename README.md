@@ -53,9 +53,10 @@ INNER JOIN sales ON sales.sale_id = saledetails.sale_id);
 
 5. Show all the products sales quantity and total money group by products id
 
-SELECT saledetails.product_id,products.product_name,saledetails.product_price,sum(sale_quantity), sum(product_price*sale_quantity) 
-FROM products 
-LEFT JOIN saledetails ON products.product_id = saledetails.product_id
+SELECT products.product_id,products.product_name,sales.machine_id,sum(saledetails.sale_quantity) AS TotalQuantity,saledetails.product_price,(saledetails.product_price*SUM(saledetails.sale_quantity)) AS TotalMony
+FROM ((products 
+LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
+LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)
 GROUP BY products.product_id;
 
 6. Show all the products order quantity, price and money group bu product id
