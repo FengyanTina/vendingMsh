@@ -10,7 +10,7 @@ Database
 
 []Quaries that may be needed
 
-1. Show product's order history and sale history with date, machine_id product's name and quantity 
+1. Show product's order history and sale history with date, current stock, group by product id, search bu machine id 
 
 SELECT products.product_id,orderdetails.orderDetail_id,refillorders.order_date,refillorders.machine_id,orderdetails.order_quantity,saledetails.sale_id,sales.sale_date,sales.machine_id,saledetails.sale_quantity 
 FROM ((((products 
@@ -20,13 +20,14 @@ INNER JOIN sales ON sales.sale_id = saledetails.sale_id)
 INNER JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)
 GROUP BY refillorders.machine_id,product_id;
 
-SELECT products.product_id,orderdetails.orderDetail_id,refillorders.order_date,refillorders.machine_id,orderdetails.order_quantity,saledetails.sale_id,sales.sale_date,sales.machine_id,saledetails.sale_quantity,(orderdetails.order_quantity-sale_quantity) 
+SELECT products.product_id,orderdetails.orderDetail_id,refillorders.order_date,orderdetails.order_quantity,saledetails.sale_id,sales.sale_date,saledetails.sale_quantity,(orderdetails.order_quantity-sale_quantity)AS CurrentStock 
 FROM ((((products 
 LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
 LEFT JOIN orderdetails ON products.product_id = orderdetails.product_id)
 LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)
 LEFT JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)
-GROUP BY refillorders.machine_id,product_id;
+WHERE refillorders.machine_id = 1
+GROUP BY product_id;
 
 
 2. Show orderdetails with machine id, product name, order product price, order quantity, total order money and order date
@@ -51,7 +52,7 @@ INNER JOIN saledetails ON products.product_id = saledetails.product_id)
 INNER JOIN sales ON sales.sale_id = saledetails.sale_id);
 
 
-5. Show all the products sales quantity and total money group by products id
+5. Show all the products sales quantity and total money group by products id [Done]
 
 SELECT products.product_id,products.product_name,sales.machine_id,sum(saledetails.sale_quantity) AS TotalQuantity,saledetails.product_price,(saledetails.product_price*SUM(saledetails.sale_quantity)) AS TotalMony
 FROM ((products 
@@ -66,7 +67,8 @@ LEFT JOIN orderdetails ON products.product_id = orderdetails.product_id
 GROUP BY products.product_id;
 
 
-7. Show all the products sales quantity, price, vending machine and total sales money group by product_id, machine_id. 
+7. Show all the products sales quantity, price, vending machine and total sales money group by product_id, machine_id. [Done]
+[Does not show the one with null value/with 0 sales]
 
 SELECT products.product_id,products.product_name, machines.machine_id,saledetails.product_price,sum(sale_quantity), sum(product_price*sale_quantity) 
 FROM (((saledetails 
@@ -74,6 +76,14 @@ INNER JOIN products ON products.product_id = saledetails.product_id)
 INNER JOIN sales ON sales.sale_id = saledetails.sale_id)
 INNER JOIN machines ON machines.machine_id = sales.machine_id) 
 GROUP BY products.product_id,machines.machine_id;
+
+[Show all the products including the one with null value] [Done]
+
+SELECT products.product_id,products.product_name,sales.machine_id,sum(saledetails.sale_quantity) AS TotalQuantity,saledetails.product_price,(saledetails.product_price*SUM(saledetails.sale_quantity)) AS TotalMony
+FROM ((products 
+LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
+LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)
+GROUP BY products.product_id,sales.machine_id;
 
 
 8. Show all the products oder quantity, price, vending machine and total order money group by product_id, machine_id. 
@@ -84,4 +94,12 @@ INNER JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrde
 INNER JOIN machines ON machines.machine_id = refillorders.machine_id)
 INNER JOIN employee ON employee.employee_id = refillorders.employee_id)
 GROUP BY products.product_id,machines.machine_id;
+
+9. Show all the salese products,quantity and money by machine ID  [Done]
+SELECT saledetails.product_id,products.product_name,saledetails.product_price,sum(saledetails.sale_quantity) AS TotalQuantity,(saledetails.product_price*sum(saledetails.sale_quantity)) AS TotalMoney
+FROM ((saledetails
+INNER JOIN sales ON saledetails.sale_id = sales.sale_id)
+INNER JOIN products ON products.product_id = saledetails.product_id)
+WHERE sales.machine_id =3
+GROUP BY saledetails.product_id; 
 
