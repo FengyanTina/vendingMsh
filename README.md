@@ -10,7 +10,7 @@ Database
 
 []Quaries that may be needed
 
-1. Show product's order history and sale history with date, current stock, group by product id, search bu machine id 
+1. Show product's order history and sale history with date, current stock, group by product id, search bu machine id [Done]
 
 SELECT products.product_id,orderdetails.orderDetail_id,refillorders.order_date,refillorders.machine_id,orderdetails.order_quantity,saledetails.sale_id,sales.sale_date,sales.machine_id,saledetails.sale_quantity 
 FROM ((((products 
