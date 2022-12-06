@@ -1,9 +1,9 @@
 using Dapper;
 using MySqlConnector;
 using System.Data;
-public class RefillOrderDB 
+public class RefillOrderDB
 {
-    
+
     private MySqlConnection connection;
 
 
@@ -12,17 +12,17 @@ public class RefillOrderDB
         connection = new MySqlConnection(("Server=localhost;Database=vendingmachine;Uid=Tina;Pwd=123456;"));
 
     }
-      public void Open()
+    public void Open()
     {
         try
         {
-           if(connection.State != ConnectionState.Open)
-            connection.Open(); 
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
         }
         catch (Exception e)
         {
-            
-            throw new FieldAccessException("DB is not accessable",e);
+
+            throw new FieldAccessException("DB is not accessable", e);
         }
     }
 
@@ -38,24 +38,30 @@ public class RefillOrderDB
         return Id;
     }
 
-     public void UpdateProduct(int roomToUpdate, int newRoomStatus)
+    public void UpdateProduct(int roomToUpdate, int newRoomStatus)
     {
         Open();
         var updateRefillOrder = connection.Query<RefillOrder>($"UPDATE rooms SET roomStatus_id={newRoomStatus} WHERE room_id = {roomToUpdate};");
     }
 
-     public void DeleteProductById(int number)
+    public void DeleteProductById(int number)
     {
         Open();
         var deleteOrderDB = connection.Query<RefillOrder>($@"DELETE FROM rooms WHERE room_id = {number};");
     }
 
-    public List<RefillOrder> GetProductList()
+    public List<RefillOrder> RefillOrderList()
     {
         Open();
-        var rooms = connection.Query<RefillOrder>("SELECT room_id,roomType_name,roomStatus_name,room_price FROM ((rooms INNER JOIN roomtype ON rooms.roomType_id=roomtype.roomType_id) INNER JOIN roomstatus ON rooms.roomStatus_id=roomstatus.roomStatus_id) ;").ToList();
+        string sql = $@"SELECT refillorder_id,orderdetails.product_id,products.product_name,refillorders.machine_id,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS OrderQuantity, (product_price*order_quantity)AS TotalMoney,refillorders.employee_id
+        FROM (((products 
+        LEFT JOIN orderdetails ON products.product_id = orderdetails.product_id)
+        LEFT JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)
+        INNER JOIN employee ON employee.employee_id = refillorders.employee_id)
+        GROUP BY products.product_id,refillorders.machine_id;";
+        var rooms = connection.Query<RefillOrder>(sql).ToList();
         return rooms;
     }
-    
+
 
 }

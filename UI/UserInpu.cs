@@ -1,5 +1,28 @@
 public class UserInput
 {
+    DataManager dbManager = new();
+    UserMenu menu = new();
+    
+    public void PrintOrderList()
+    {
+         Console.WriteLine("\n******* Order List ********\n");
+        try
+        {
+            if (dbManager.GetRefillOrders() != null)
+            {
+                foreach (var item in dbManager.GetRefillOrders())
+                {
+                    Console.WriteLine(item + " \n \n");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw new ArgumentNullException("Order list not found",e);
+        }
+        Console.ReadLine();
+    }
+    
     public string GetString(string prompt)
     {
         Console.Write(prompt);

@@ -2,12 +2,12 @@ public class DataManager
 {
     EmployeeDB employeeDB = new EmployeeDB();
     MachineDB machineDB = new MachineDB();
-    OrderDB orderDB = new OrderDB();
+    RefillOrderDB orderDB = new RefillOrderDB();
     ProductDB productDB = new ProductDB();
     SaleDB saleDB = new SaleDB();
 
-    public int AddOrder()
+    public List<RefillOrder> GetRefillOrders()
     {
-       return int id = orderDB.InsertOrder();
+       return orderDB.RefillOrderList();
     }
 }
