@@ -26,7 +26,7 @@ public class RefillOrderDB
         }
     }
 
-    public int InsertOrder(int typeID, int statusID, double price)
+    public int InsertRefillOrder(int typeID, int statusID, double price)
     {
         Open();
         var r = new DynamicParameters();
@@ -38,13 +38,13 @@ public class RefillOrderDB
         return Id;
     }
 
-    public void UpdateProduct(int roomToUpdate, int newRoomStatus)
+    public void UpdateRefillOrderById(int roomToUpdate, int newRoomStatus)
     {
         Open();
         var updateRefillOrder = connection.Query<RefillOrder>($"UPDATE rooms SET roomStatus_id={newRoomStatus} WHERE room_id = {roomToUpdate};");
     }
 
-    public void DeleteProductById(int number)
+    public void DeleteOrderById(int number)
     {
         Open();
         var deleteOrderDB = connection.Query<RefillOrder>($@"DELETE FROM rooms WHERE room_id = {number};");
