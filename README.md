@@ -24,7 +24,7 @@ GROUP BY product_id;
 
 
 2. Show orderdetails with machine id, product name, order product price, order quantity, total order money and order date[Done]
-SELECT refillorders.refillorder_id,orderdetails.product_id,products.product_name,refillorders.machine_id,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS OrderQuantity, (product_price*order_quantity)AS TotalMoney,refillorders.employee_id
+SELECT refillorders.refillorder_id,orderdetails.product_id,products.product_name,refillorders.machine_id,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS order_quantity, (product_price*order_quantity)AS order_totalPay,refillorders.employee_id
 FROM (((products 
 LEFT JOIN orderdetails ON products.product_id = orderdetails.product_id)
 LEFT JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)
@@ -34,7 +34,7 @@ GROUP BY products.product_id,refillorders.machine_id;
 
 3. Show orderdetails with product name, order prodeduct_price, order_quantity and order_date SEARCH by machine id [Done]
 
-SELECT orderdetails.product_id,products.product_name,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS OrderQuantity, (product_price*order_quantity)AS TotalMoney, refillorders.employee_id
+SELECT refillorders.refillorder_id,orderdetails.product_id,products.product_name,refillorders.machine_id,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS order_quantity, (product_price*order_quantity)AS order_totalPay,refillorders.employee_id
 FROM (((products 
 LEFT JOIN orderdetails ON products.product_id = orderdetails.product_id)
 LEFT JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)

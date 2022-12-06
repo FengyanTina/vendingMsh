@@ -10,4 +10,9 @@ public class DataManager
     {
        return orderDB.RefillOrderList();
     }
+
+    public List<RefillOrder> GetRefillOrdersByMachineId(int id)
+    {
+       return orderDB.SearchOrderByMachineId(id);
+    }
 }

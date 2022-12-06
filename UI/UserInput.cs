@@ -1,10 +1,32 @@
 public class UserInput
 {
     DataManager dbManager = new();
+    public void PrintOrderListByMachineId()
+    {
+        Console.WriteLine("\n---------------------------------------------- Order List By MahcineID -------------------------------------------\n");
+        int machineId = TryGetInt("Mchine Id: ");
+
+        try
+        {
+            if (dbManager.GetRefillOrdersByMachineId(machineId).Count() != 0)
+            {
+                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
+                foreach (var item in dbManager.GetRefillOrdersByMachineId(machineId))
+                {
+                    Console.WriteLine(item + " \n");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw new ArgumentNullException("Order list not found",e);
+        }
+        Console.ReadLine(); 
+    }
     
     public void PrintOrderList()
     {
-         Console.WriteLine("\n******************************* Order List ************************\n");
+         Console.WriteLine("\n------------------------------------------- Order List ---------------------------------------\n");
         try
         {
             if (dbManager.GetRefillOrders().Count() != 0)

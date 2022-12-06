@@ -27,6 +27,7 @@ public class UserMenu
                     break;
 
                 case OrderCategory.SearchOrderByMachinId:
+                     userInput.PrintOrderListByMachineId();
                    
                     break;
 
@@ -173,7 +174,7 @@ public class UserMenu
            { 
             Console.WriteLine("[{1}]:  {0,-20} ", c, 
                               Enum.Format(typeof(OrderCategory), 
-                              Enum.Parse(typeof(ProductCategory), c), "d"));
+                              Enum.Parse(typeof(OrderCategory), c), "d"));
            }
 
            OrderCategory orderChoice =(OrderCategory)userInput.TryGetInt("Select one of the options:");    

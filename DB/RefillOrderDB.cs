@@ -62,5 +62,18 @@ public class RefillOrderDB
         return orders;
     }
 
+    public List<RefillOrder> SearchOrderByMachineId(int number)
+    {
+        Open();
+        var OrderByMachineIdList = connection.Query<RefillOrder>($@"SELECT refillorders.refillorder_id,orderdetails.product_id,products.product_name,refillorders.machine_id,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS order_quantity, (product_price*order_quantity)AS order_totalPay,refillorders.employee_id
+        FROM (((products 
+        LEFT JOIN orderdetails ON products.product_id = orderdetails.product_id)
+        LEFT JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)
+        LEFT JOIN employee ON employee.employee_id = refillorders.employee_id)
+        WHERE refillorders.machine_id ={number}
+        GROUP BY products.product_id;").ToList();
+        return OrderByMachineIdList;
+    }
+
 
 }
