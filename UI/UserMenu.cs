@@ -19,62 +19,20 @@ public class UserMenu
                     userInput.PrintOrderList();
                     break;
 
-                case OrderCategory.ShowAvailableRooms:
+                case OrderCategory.AddOrder:
                     
                     break;
 
-                case OrderCategory.ShowReservations:
+                case OrderCategory.DeleteOrderById:
                     
                     break;
 
-                case OrderCategory.SearchRoom:
+                case OrderCategory.SearchOrderByMachinId:
                    
                     break;
 
-                case OrderCategory.AddRoom:
+                case OrderCategory.UppdateOrder:
                    
-                    break;
-
-                case OrderCategory.RemoveRoom:
-                    
-                    break;
-
-                case OrderCategory.UpdateRoomStatus:
-                    
-                    break;
-
-                case OrderCategory.MakingReservation:
-                  
-                    break;
-
-                case OrderCategory.ShowSingleReservation:
-                  
-
-                    break;
-
-                case OrderCategory.CheckIn:
-                    
-                    break;
-
-                case OrderCategory.CheckOut:
-                    
-                    Console.ReadLine();
-                    break;
-
-                case OrderCategory.ShowPaymentOption:
-                    
-                    break;
-
-                case OrderCategory.UpdateReservationDate:
-                   
-                    break;
-
-                case OrderCategory.ReadReviews:
-                    
-                    break;
-
-                case OrderCategory.RemoveReview:
-                    
                     break;
 
                 case OrderCategory.Quit:
@@ -115,26 +73,80 @@ public class UserMenu
         return category;
     }
 
+    public ProductCategory ProductCategorySwitch()
+    {
+        foreach (string c in Enum.GetNames(typeof(ProductCategory)))
+           { 
+            Console.WriteLine("[{1}]:  {0,-20} ", c, 
+                              Enum.Format(typeof(ProductCategory), 
+                              Enum.Parse(typeof(ProductCategory), c), "d"));
+           }
+        ProductCategory productCategory = (ProductCategory)userInput.TryGetInt("Select one of the options:");
+        return productCategory;
+    }
+
+    public SalesAndStockCategory SalesAndStockCategorySwitch()
+    {
+        foreach (string c in Enum.GetNames(typeof(SalesAndStockCategory)))
+           { 
+            Console.WriteLine("[{1}]:  {0,-20} ", c, 
+                              Enum.Format(typeof(SalesAndStockCategory), 
+                              Enum.Parse(typeof(SalesAndStockCategory), c), "d"));
+           }
+        SalesAndStockCategory salesCategory = (SalesAndStockCategory)userInput.TryGetInt("Select one of the options:");
+        return salesCategory;
+    }
+
+    public EmployeeCategory EmployeeCategorySwitch()
+    {
+        foreach (string c in Enum.GetNames(typeof(EmployeeCategory)))
+           { 
+            Console.WriteLine("[{1}]:  {0,-20} ", c, 
+                              Enum.Format(typeof(EmployeeCategory), 
+                              Enum.Parse(typeof(EmployeeCategory), c), "d"));
+           }
+        EmployeeCategory employeeCategory = (EmployeeCategory)userInput.TryGetInt("Select one of the options:");
+        return employeeCategory;
+    }
+
 
 }
 
 public enum OrderCategory
 {
     ShowOrderList = 1,
-    ShowAvailableRooms,
-    SearchRoom,
-    AddRoom,
-    RemoveRoom,
-    UpdateRoomStatus,
-    MakingReservation,
-    ShowReservations,
-    ShowSingleReservation,
-    UpdateReservationDate,
-    CheckIn,
-    CheckOut,
-    ShowPaymentOption,
-    ReadReviews,
-    RemoveReview,
+    AddOrder,
+    UppdateOrder,
+    DeleteOrderById,
+    SearchOrderByMachinId,
+    Quit,
+}
+
+public enum ProductCategory
+{
+    ShowProductList = 1,
+    AddProduct,
+    UppdateProduct,
+    DeleteProductById,
+    SearchProductByMachinId,
+    Quit,
+}
+
+public enum SalesAndStockCategory
+{
+    ShowSalesList = 1,
+    AddSales,
+    ShowSalesByMachinId,
+    ShowSalesByProductId,
+    Quit,
+}
+
+public enum EmployeeCategory
+{
+    ShowEmployeeList = 1,
+    AddEmployee,
+    DeleteEmployeeById,
+    UpdateEmployeeById,
     Quit,
 }
 
