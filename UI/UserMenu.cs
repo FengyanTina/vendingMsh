@@ -31,7 +31,10 @@ public class UserMenu
 
                 case OrderCategory.SearchOrderByMachinId:
                      userInput.PrintOrderListByMachineId();
-                   
+                    break;
+
+                case OrderCategory.SearchOrderByOrderId:
+                     userInput.PrintOrderListByMachineId();
                     break;
 
                 case OrderCategory.AddOrder:
@@ -251,6 +254,7 @@ public enum OrderCategory
     UpdateOrderMachineEmployeeById,
     DeleteOrderById,
     SearchOrderByMachinId,
+    SearchOrderByOrderId,
     Quit,
 }
 

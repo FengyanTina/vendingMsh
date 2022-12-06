@@ -2,7 +2,26 @@ public class UserInput
 {
     DataManager dbManager = new();
 
-     public void UpdateOrderMachineEmployeeByIdInput()
+    public void SearchOrderByOrderIdInput()
+    {
+       int orderId= TryGetInt("Enter searching order ID: ");
+       
+      try
+      {
+        if ((dbManager.GetOrderByOrdeId(orderId)!=null))
+        {
+            Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
+            Console.WriteLine( dbManager.GetOrderByOrdeId(orderId));  
+        }
+      }
+      catch (Exception e)
+      {
+        
+        throw new ArgumentNullException("Order not found!",e);
+      } 
+    }
+
+    public void UpdateOrderMachineEmployeeByIdInput()
     {
         int orderId= TryGetInt("Enter updateing order ID: ");
         int employeeId= TryGetInt("Enter new employee ID: ");
@@ -26,6 +45,7 @@ public class UserInput
         Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
         Console.WriteLine(dbManager.GetOrderDetailsByOrderProductId(orderId,newProductId));
     }
+
     public void PrintOrderListByMachineId()
     {
         Console.WriteLine("\n---------------------------------------------- Order List By MahcineID -------------------------------------------\n");
