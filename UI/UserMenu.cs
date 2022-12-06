@@ -1,19 +1,19 @@
 public class UserMenu
 {
-     public DataManager dbManager = new();
-    public UserInput userInput = new();
+      DataManager dbManager = new();
+     UserInput userInput = new();
      
 
-    public void OrderCatrgory(int employeeId) 
+    public void OrderCatrgory() 
     {
         bool quit = false;
         while (!quit)
         {
             Console.Clear();
             Console.WriteLine("\n********* Order Category Choice*********\n ");
-           OrderCategory choice = new();
+           OrderCategory OrderChoice = new();
 
-            switch (choice)
+            switch (OrderChoice)
             {
                 case OrderCategory.ShowOrderList:
                     userInput.PrintOrderList();
@@ -91,34 +91,43 @@ public class UserMenu
     
     public OrderCategory OrderCategoryChoice()
     {
-        OrderCategory choice = new();
-        while(choice != (OrderCategory)userInput.TryGetInt("Select one of the options:")||Enum.TryParse(Console.ReadLine(), true, out choice) || !Enum.IsDefined(typeof(OrderCategory), choice))
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Invalid choice");
-            Console.ResetColor();
-
-            Console.Write("Valid choice are: \n");
-            Console.ForegroundColor = ConsoleColor.Yellow;
         foreach (string c in Enum.GetNames(typeof(OrderCategory)))
            { 
             Console.WriteLine("[{1}]:  {0,-20} ", c, 
                               Enum.Format(typeof(OrderCategory), 
                               Enum.Parse(typeof(OrderCategory), c), "d"));
            }
-           Console.ResetColor();
-        }    
-        return choice;
+
+           OrderCategory orderChoice =(OrderCategory)userInput.TryGetInt("Select one of the options:");
+
+        // OrderCategory choice = new();
+        // while(choice != (OrderCategory)userInput.TryGetInt("Select one of the options:")||Enum.TryParse(Console.ReadLine(), true, out choice) || !Enum.IsDefined(typeof(OrderCategory), choice))
+        // {
+        //     Console.ForegroundColor = ConsoleColor.Red;
+        //     Console.WriteLine("Invalid choice");
+        //     Console.ResetColor();
+
+        //     Console.Write("Valid choice are: \n");
+        //     Console.ForegroundColor = ConsoleColor.Yellow;
+        // foreach (string c in Enum.GetNames(typeof(OrderCategory)))
+        //    { 
+        //     Console.WriteLine("[{1}]:  {0,-20} ", c, 
+        //                       Enum.Format(typeof(OrderCategory), 
+        //                       Enum.Parse(typeof(OrderCategory), c), "d"));
+        //    }
+        //    Console.ResetColor();
+        // }    
+        return orderChoice;
     }
 
 
     public Category CategorySwitch()
     {
-        foreach (string c in Enum.GetNames(typeof(OrderCategory)))
+        foreach (string c in Enum.GetNames(typeof(Category)))
            { 
             Console.WriteLine("[{1}]:  {0,-20} ", c, 
-                              Enum.Format(typeof(OrderCategory), 
-                              Enum.Parse(typeof(OrderCategory), c), "d"));
+                              Enum.Format(typeof(Category), 
+                              Enum.Parse(typeof(Category), c), "d"));
            }
         Category category = (Category)userInput.TryGetInt("Select one of the options:");
         return category;

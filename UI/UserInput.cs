@@ -1,7 +1,7 @@
 public class UserInput
 {
     DataManager dbManager = new();
-    UserMenu menu = new();
+    // UserMenu menu = new();
     
     public void PrintOrderList()
     {

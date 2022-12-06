@@ -3,7 +3,7 @@
     private static void Main(string[] args)
     {
         UserMenu menu = new();
-        UserInput userInput = new();
+        UserInput Input = new();
         Category category = menu.CategorySwitch();
 
         bool quit = false;
@@ -30,7 +30,7 @@
                     break;
 
                 case Category.Quit:
-                    quit = userInput.QuitMessage();
+                    quit = Input.QuitMessage();
                     Environment.Exit(0);
                     break;
 
