@@ -1,6 +1,31 @@
 public class UserInput
 {
     DataManager dbManager = new();
+
+     public void UpdateOrderMachineEmployeeByIdInput()
+    {
+        int orderId= TryGetInt("Enter updateing order ID: ");
+        int employeeId= TryGetInt("Enter new employee ID: ");
+        int machineId= TryGetInt("Enter new machine ID: ");
+        
+        dbManager.UpdateOrderMachineEmployeeById(orderId, employeeId,machineId);
+        Console.WriteLine ("Order has been updated, new order details is: ");
+        Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
+        Console.WriteLine(dbManager.GetOrderByOrdeId(orderId));
+    }
+
+    public void UpdateOrderProductByIdInput()
+    {
+        int orderId= TryGetInt("Enter updateing order ID: ");
+        int productId= TryGetInt("Enter updateing product ID: ");
+        int newProductId= TryGetInt("Enter new product ID: ");
+        int productQuantity= TryGetInt("Enter updateing prodct Quantity: ");
+        
+        dbManager.UpdateOrderProductById(orderId,productId,productQuantity,newProductId);
+        Console.WriteLine ("Order has been updated, new order details is: ");
+        Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
+        Console.WriteLine(dbManager.GetOrderDetailsByOrderProductId(orderId,newProductId));
+    }
     public void PrintOrderListByMachineId()
     {
         Console.WriteLine("\n---------------------------------------------- Order List By MahcineID -------------------------------------------\n");
@@ -23,7 +48,7 @@ public class UserInput
         }
         Console.ReadLine(); 
     }
-    
+
     public void PrintOrderList()
     {
          Console.WriteLine("\n------------------------------------------- Order List ---------------------------------------\n");

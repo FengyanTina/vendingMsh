@@ -22,8 +22,11 @@ public class UserMenu
                     
                     break;
 
-                case OrderCategory.UppdateOrder:
-                    
+                case OrderCategory.UppdateOrderProductById:
+                    userInput.UpdateOrderProductByIdInput();
+                    break;
+                case OrderCategory.UpdateOrderMachineEmployeeById:
+                    userInput.UpdateOrderMachineEmployeeByIdInput();
                     break;
 
                 case OrderCategory.SearchOrderByMachinId:
@@ -244,7 +247,8 @@ public enum OrderCategory
 {
     ShowOrderList = 1,
     AddOrder,
-    UppdateOrder,
+    UppdateOrderProductById,
+    UpdateOrderMachineEmployeeById,
     DeleteOrderById,
     SearchOrderByMachinId,
     Quit,

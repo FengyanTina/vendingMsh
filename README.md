@@ -42,6 +42,17 @@ LEFT JOIN employee ON employee.employee_id = refillorders.employee_id)
 WHERE refillorders.machine_id =1
 GROUP BY products.product_id;
 
+4. Update order product
+UPDATE orderdetails o
+SET o.product_id=12
+        WHERE o.refillOrder_id =3 AND o.product_id =1;
+
+5. Update order machine, employee
+UPDATE refillorders r
+SET r.employee_id = 1,
+    r.machine_id= 1
+        WHERE r.refillOrder_id =3 ;
+
 4. Show salesdetails with machine id, product name, sales product_price, sale quantiry and sale_date group by product id [Done]
 
 
@@ -68,7 +79,10 @@ GROUP BY products.product_id;
 
 8. Uppdate products
 
-
+UPDATE library l, stu_book s
+    SET l.book_count = l.book_count - 2,
+        s.book_count = s.book_count + 2
+WHERE l.id = s.book_id;
 
 
 
