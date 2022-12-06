@@ -1,8 +1,7 @@
 public class UserMenu
 {
-      DataManager dbManager = new();
-     UserInput userInput = new();
-     
+    DataManager dbManager = new();
+    UserInput userInput = new();
 
     public void OrderChoice() 
     {
@@ -19,11 +18,11 @@ public class UserMenu
                     userInput.PrintOrderList();
                     break;
 
-                case OrderCategory.AddOrder:
+                case OrderCategory.DeleteOrderById:
                     
                     break;
 
-                case OrderCategory.DeleteOrderById:
+                case OrderCategory.UppdateOrder:
                     
                     break;
 
@@ -31,11 +30,132 @@ public class UserMenu
                    
                     break;
 
-                case OrderCategory.UppdateOrder:
+                case OrderCategory.AddOrder:
                    
                     break;
 
                 case OrderCategory.Quit:
+
+                    quit = userInput.QuitMessage();
+                    Environment.Exit(0);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void ProductChoice() 
+    {
+        bool quit = false;
+        while (!quit)
+        {
+            Console.Clear();
+            Console.WriteLine("\n********* Product Category Choice*********\n ");
+           ProductCategory productChoice = ProductCategorySwitch();
+
+            switch (productChoice)
+            {
+                case ProductCategory.AddProduct:
+                    userInput.PrintOrderList();
+                    break;
+
+                case ProductCategory.DeleteProductById:
+                    
+                    break;
+
+                case ProductCategory.ShowProductList:
+                    
+                    break;
+
+                case ProductCategory.ShowProductByMachinId:
+                   
+                    break;
+
+                case ProductCategory.UppdateProduct:
+                   
+                    break;
+
+                case ProductCategory.Quit:
+
+                    quit = userInput.QuitMessage();
+                    Environment.Exit(0);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void SalesChoice() 
+    {
+        bool quit = false;
+        while (!quit)
+        {
+            Console.Clear();
+            Console.WriteLine("\n********* Product Category Choice*********\n ");
+           SalesCategory salesChoice = SalesCategorySwitch();
+
+            switch (salesChoice)
+            {
+                case SalesCategory.AddSales:
+                    userInput.PrintOrderList();
+                    break;
+
+                case SalesCategory.ShowSalesList:
+                    
+                    break;
+
+                case SalesCategory.ShowSalesByMachinId:
+                    
+                    break;
+
+                case SalesCategory.ShowSalesByProductId:
+                   
+                    break;
+
+                case SalesCategory.Quit:
+
+                    quit = userInput.QuitMessage();
+                    Environment.Exit(0);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void EmployeeChoice() 
+    {
+        bool quit = false;
+        while (!quit)
+        {
+            Console.Clear();
+            Console.WriteLine("\n********* Product Category Choice*********\n ");
+           EmployeeCategory employeeChoice = EmployeeCategorySwitch();
+
+            switch (employeeChoice)
+            {
+                case EmployeeCategory.AddEmployee:
+                    userInput.PrintOrderList();
+                    break;
+
+                case EmployeeCategory.DeleteEmployeeById:
+                    
+                    break;
+
+                case EmployeeCategory.SearchEmployee:
+                    
+                    break;
+
+                case EmployeeCategory.UpdateEmployeeById:
+                   
+                    break;
+
+                case EmployeeCategory.Quit:
 
                     quit = userInput.QuitMessage();
                     Environment.Exit(0);
@@ -53,13 +173,12 @@ public class UserMenu
            { 
             Console.WriteLine("[{1}]:  {0,-20} ", c, 
                               Enum.Format(typeof(OrderCategory), 
-                              Enum.Parse(typeof(OrderCategory), c), "d"));
+                              Enum.Parse(typeof(ProductCategory), c), "d"));
            }
 
            OrderCategory orderChoice =(OrderCategory)userInput.TryGetInt("Select one of the options:");    
         return orderChoice;
     }
-
 
     public Category CategorySwitch()
     {
@@ -85,15 +204,15 @@ public class UserMenu
         return productCategory;
     }
 
-    public SalesAndStockCategory SalesAndStockCategorySwitch()
+    public SalesCategory SalesCategorySwitch()
     {
-        foreach (string c in Enum.GetNames(typeof(SalesAndStockCategory)))
+        foreach (string c in Enum.GetNames(typeof(SalesCategory)))
            { 
             Console.WriteLine("[{1}]:  {0,-20} ", c, 
-                              Enum.Format(typeof(SalesAndStockCategory), 
-                              Enum.Parse(typeof(SalesAndStockCategory), c), "d"));
+                              Enum.Format(typeof(SalesCategory), 
+                              Enum.Parse(typeof(SalesCategory), c), "d"));
            }
-        SalesAndStockCategory salesCategory = (SalesAndStockCategory)userInput.TryGetInt("Select one of the options:");
+        SalesCategory salesCategory = (SalesCategory)userInput.TryGetInt("Select one of the options:");
         return salesCategory;
     }
 
@@ -108,8 +227,16 @@ public class UserMenu
         EmployeeCategory employeeCategory = (EmployeeCategory)userInput.TryGetInt("Select one of the options:");
         return employeeCategory;
     }
+}
 
-
+public enum ProductCategory
+{
+    ShowProductList = 1,
+    AddProduct,
+    UppdateProduct,
+    DeleteProductById,
+    ShowProductByMachinId,
+    Quit,
 }
 
 public enum OrderCategory
@@ -122,17 +249,7 @@ public enum OrderCategory
     Quit,
 }
 
-public enum ProductCategory
-{
-    ShowProductList = 1,
-    AddProduct,
-    UppdateProduct,
-    DeleteProductById,
-    SearchProductByMachinId,
-    Quit,
-}
-
-public enum SalesAndStockCategory
+public enum SalesCategory
 {
     ShowSalesList = 1,
     AddSales,
@@ -143,8 +260,8 @@ public enum SalesAndStockCategory
 
 public enum EmployeeCategory
 {
-    ShowEmployeeList = 1,
-    AddEmployee,
+    AddEmployee= 1,
+    SearchEmployee,
     DeleteEmployeeById,
     UpdateEmployeeById,
     Quit,
