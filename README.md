@@ -24,19 +24,21 @@ GROUP BY product_id;
 
 
 2. Show orderdetails with machine id, product name, order product price, order quantity, total order money and order date[Done]
-SELECT orderdetails.product_id,products.product_name,refillorders.machine_id,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS OrderQuantity, (product_price*order_quantity)AS TotalMoney
-FROM ((products 
+SELECT orderdetails.product_id,products.product_name,refillorders.machine_id,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS OrderQuantity, (product_price*order_quantity)AS TotalMoney,refillorders.employee_id
+FROM (((products 
 LEFT JOIN orderdetails ON products.product_id = orderdetails.product_id)
 LEFT JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)
+INNER JOIN employee ON employee.employee_id = refillorders.employee_id)
 GROUP BY products.product_id,refillorders.machine_id;
 
 
 3. Show orderdetails with product name, order prodeduct_price, order_quantity and order_date SEARCH by machine id [Done]
 
-SELECT orderdetails.product_id,products.product_name,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS OrderQuantity, (product_price*order_quantity)AS TotalMoney
-FROM ((products 
+SELECT orderdetails.product_id,products.product_name,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS OrderQuantity, (product_price*order_quantity)AS TotalMoney, refillorders.employee_id
+FROM (((products 
 LEFT JOIN orderdetails ON products.product_id = orderdetails.product_id)
 LEFT JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)
+LEFT JOIN employee ON employee.employee_id = refillorders.employee_id)
 WHERE refillorders.machine_id =1
 GROUP BY products.product_id;
 
@@ -60,6 +62,14 @@ LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)
 WHERE sales.machine_id =1
 GROUP BY products.product_id;
 
+6. Add order
+
+7. Add sales
+
+8. Uppdate products
+
+
+
 
 
 
@@ -81,4 +91,6 @@ INNER JOIN sales ON saledetails.sale_id = sales.sale_id)
 INNER JOIN products ON products.product_id = saledetails.product_id)
 WHERE sales.machine_id =3
 GROUP BY saledetails.product_id; 
+
+
 
