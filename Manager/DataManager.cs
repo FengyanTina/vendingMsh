@@ -1,10 +1,10 @@
 public class DataManager
 {
-    EmployeeDB employeeDB = new EmployeeDB();
-    MachineDB machineDB = new MachineDB();
-    RefillOrderDB orderDB = new RefillOrderDB();
-    ProductDB productDB = new ProductDB();
-    SaleDB saleDB = new SaleDB();
+    EmployeeDB employeeDB = new ();
+    MachineDB machineDB = new ();
+    RefillOrderDB orderDB = new ();
+    ProductDB productDB = new ();
+    SaleDB saleDB = new ();
 
     public List<RefillOrder> GetRefillOrders()
     {

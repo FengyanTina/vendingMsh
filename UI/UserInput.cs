@@ -5,14 +5,15 @@ public class UserInput
     
     public void PrintOrderList()
     {
-         Console.WriteLine("\n******* Order List ********\n");
+         Console.WriteLine("\n******************************* Order List ************************\n");
         try
         {
-            if (dbManager.GetRefillOrders() != null)
+            if (dbManager.GetRefillOrders().Count() != 0)
             {
+                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
                 foreach (var item in dbManager.GetRefillOrders())
                 {
-                    Console.WriteLine(item + " \n \n");
+                    Console.WriteLine(item + " \n");
                 }
             }
         }

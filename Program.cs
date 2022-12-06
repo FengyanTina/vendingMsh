@@ -14,7 +14,7 @@
             switch (category)
             {
                 case Category.Orders:
-                    menu.OrderCategoryChoice();
+                    menu.OrderChoice();
                     break;
 
                 case Category.Products:

@@ -53,14 +53,13 @@ public class RefillOrderDB
     public List<RefillOrder> RefillOrderList()
     {
         Open();
-        string sql = $@"SELECT refillorder_id,orderdetails.product_id,products.product_name,refillorders.machine_id,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS OrderQuantity, (product_price*order_quantity)AS TotalMoney,refillorders.employee_id
+        var orders = connection.Query<RefillOrder>($@"SELECT refillorders.refillorder_id,orderdetails.product_id,products.product_name,refillorders.machine_id,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS order_quantity, (product_price*order_quantity)AS order_totalPay,refillorders.employee_id
         FROM (((products 
         LEFT JOIN orderdetails ON products.product_id = orderdetails.product_id)
         LEFT JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)
         INNER JOIN employee ON employee.employee_id = refillorders.employee_id)
-        GROUP BY products.product_id,refillorders.machine_id;";
-        var rooms = connection.Query<RefillOrder>(sql).ToList();
-        return rooms;
+        GROUP BY products.product_id,refillorders.machine_id;").ToList();
+        return orders;
     }
 
 

@@ -4,14 +4,14 @@ public class UserMenu
      UserInput userInput = new();
      
 
-    public void OrderCatrgory() 
+    public void OrderChoice() 
     {
         bool quit = false;
         while (!quit)
         {
             Console.Clear();
             Console.WriteLine("\n********* Order Category Choice*********\n ");
-           OrderCategory OrderChoice = new();
+           OrderCategory OrderChoice = OrderCategorySwitch();
 
             switch (OrderChoice)
             {
@@ -89,7 +89,7 @@ public class UserMenu
         }
     }
     
-    public OrderCategory OrderCategoryChoice()
+    public OrderCategory OrderCategorySwitch()
     {
         foreach (string c in Enum.GetNames(typeof(OrderCategory)))
            { 
@@ -98,25 +98,7 @@ public class UserMenu
                               Enum.Parse(typeof(OrderCategory), c), "d"));
            }
 
-           OrderCategory orderChoice =(OrderCategory)userInput.TryGetInt("Select one of the options:");
-
-        // OrderCategory choice = new();
-        // while(choice != (OrderCategory)userInput.TryGetInt("Select one of the options:")||Enum.TryParse(Console.ReadLine(), true, out choice) || !Enum.IsDefined(typeof(OrderCategory), choice))
-        // {
-        //     Console.ForegroundColor = ConsoleColor.Red;
-        //     Console.WriteLine("Invalid choice");
-        //     Console.ResetColor();
-
-        //     Console.Write("Valid choice are: \n");
-        //     Console.ForegroundColor = ConsoleColor.Yellow;
-        // foreach (string c in Enum.GetNames(typeof(OrderCategory)))
-        //    { 
-        //     Console.WriteLine("[{1}]:  {0,-20} ", c, 
-        //                       Enum.Format(typeof(OrderCategory), 
-        //                       Enum.Parse(typeof(OrderCategory), c), "d"));
-        //    }
-        //    Console.ResetColor();
-        // }    
+           OrderCategory orderChoice =(OrderCategory)userInput.TryGetInt("Select one of the options:");    
         return orderChoice;
     }
 
