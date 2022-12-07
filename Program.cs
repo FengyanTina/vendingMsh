@@ -19,15 +19,21 @@
                     break;
 
                 case Category.Products:
+                    menu.ProductChoice();
                     
                     break;
 
                 case Category.Sales:
+                    menu.SalesChoice();
                     
                     break;
 
                 case Category.Machines:
-                    
+                    menu.MachineChoice();
+                    break;
+
+                 case Category.Emoloyees:
+                    menu.EmployeeChoice();
                     break;
 
                 case Category.Quit:

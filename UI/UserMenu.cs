@@ -65,7 +65,6 @@ public class UserMenu
             switch (productChoice)
             {
                 case ProductCategory.AddProduct:
-                    userInput.PrintOrderList();
                     break;
 
                 case ProductCategory.DeleteProductById:
@@ -73,7 +72,7 @@ public class UserMenu
                     break;
 
                 case ProductCategory.ShowProductList:
-                    
+                    userInput.PrintProductList();
                     break;
 
                 case ProductCategory.ShowProductByMachinId:
@@ -85,6 +84,48 @@ public class UserMenu
                     break;
 
                 case ProductCategory.Quit:
+
+                    quit = userInput.QuitMessage();
+                    Environment.Exit(0);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void MachineChoice() 
+    {
+        bool quit = false;
+        while (!quit)
+        {
+            Console.Clear();
+            Console.WriteLine("\n********* Product Category Choice*********\n ");
+           MachineCategory machineChoice = MachineCategorySwitch();
+
+            switch (machineChoice)
+            {
+                case MachineCategory.AddMachine:
+                    break;
+
+                case MachineCategory.DeleteMachine:
+                    
+                    break;
+
+                case MachineCategory.SearchMachine:
+                   
+                    break;
+
+                case MachineCategory.ShowMachineList:
+                   
+                    break;
+
+                case MachineCategory.UppdateMachine:
+                   
+                    break;
+
+                case MachineCategory.Quit:
 
                     quit = userInput.QuitMessage();
                     Environment.Exit(0);
@@ -211,6 +252,19 @@ public class UserMenu
         return productCategory;
     }
 
+     public MachineCategory MachineCategorySwitch()
+    {
+        foreach (string c in Enum.GetNames(typeof(MachineCategory)))
+           { 
+            Console.WriteLine("[{1}]:  {0,-20} ", c, 
+                              Enum.Format(typeof(MachineCategory), 
+                              Enum.Parse(typeof(MachineCategory), c), "d"));
+           }
+
+           MachineCategory machineChoice =(MachineCategory)userInput.TryGetInt("Select one of the options:");    
+        return machineChoice;
+    }
+
     public SalesCategory SalesCategorySwitch()
     {
         foreach (string c in Enum.GetNames(typeof(SalesCategory)))
@@ -243,6 +297,16 @@ public enum ProductCategory
     UppdateProduct,
     DeleteProductById,
     ShowProductByMachinId,
+    Quit,
+}
+
+public enum MachineCategory
+{
+    ShowMachineList = 1,
+    AddMachine,
+    UppdateMachine,
+    DeleteMachine,
+    SearchMachine,
     Quit,
 }
 

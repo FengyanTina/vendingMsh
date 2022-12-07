@@ -2,6 +2,27 @@ public class UserInput
 {
     DataManager dbManager = new();
 
+    public void PrintProductList()
+    {
+        Console.WriteLine("\n------------------------------------------- Product List ---------------------------------------\n");
+        try
+        {
+            if (dbManager.GetProductList().Count() != 0)
+            {
+                Console.WriteLine("Product ID\tProduct Name");
+                foreach (var item in dbManager.GetProductList())
+                {
+                    Console.WriteLine(item);
+                }
+            }
+        }
+        catch (Exception e)
+      {
+        
+        throw new ArgumentNullException("Products not found!",e);
+      } 
+
+    }
     public void SearchOrderByOrderIdInput()
     {
        int orderId= TryGetInt("Enter searching order ID: ");

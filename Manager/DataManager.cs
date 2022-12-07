@@ -35,4 +35,9 @@ public class DataManager
     {
        return orderDB.SearchOrderByOrderId(orderId);
     }
+
+     public List<Product> GetProductList()
+    {
+       return productDB.GetProducts();
+    }
 }
