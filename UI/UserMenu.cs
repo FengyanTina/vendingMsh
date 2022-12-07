@@ -65,7 +65,7 @@ public class UserMenu
             switch (productChoice)
             {
                 case ProductCategory.AddProduct:
-                     userInput.PrintAddedProduct();
+                     userInput.AddProductInput();
                     break;
 
                 case ProductCategory.DeleteProductById:
@@ -108,18 +108,19 @@ public class UserMenu
             switch (machineChoice)
             {
                 case MachineCategory.AddMachine:
+                     userInput.AddMachineInput();
                     break;
 
                 case MachineCategory.DeleteMachine:
-                    
+                    userInput.DeleteMachineInput();
                     break;
 
-                case MachineCategory.SearchMachine:
-                   
+                case MachineCategory.SearchMachineById:
+                   userInput.SearchMachineByIdInnput();
                     break;
 
                 case MachineCategory.ShowMachineList:
-                   
+                   userInput.PrintMachineList();
                     break;
 
                 case MachineCategory.UppdateMachine:
@@ -307,7 +308,7 @@ public enum MachineCategory
     AddMachine,
     UppdateMachine,
     DeleteMachine,
-    SearchMachine,
+    SearchMachineById,
     Quit,
 }
 

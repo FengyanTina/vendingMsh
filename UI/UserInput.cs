@@ -2,6 +2,61 @@ public class UserInput
 {
     DataManager dbManager = new();
 
+    public void DeleteMachineInput()
+    {
+        int id = TryGetInt("Enter Machine id to be deleted");
+        dbManager.RemoveMachineById(id);
+         Console.WriteLine("Machine has been removed!");
+        Console.ReadLine();
+    }
+    
+    public void AddMachineInput()
+    {
+            string location = GetString("Enter machine location: ");
+            string model = GetString("Enter machine model:");
+            int id = dbManager.AddMachine(location,model);
+             Console.WriteLine("------- Added Machine ID ------");
+             Console.WriteLine(id);
+             Console.WriteLine("-------- Added Machine ------");
+             Console.WriteLine("Machine ID\tMachine Location\t\tMaichine Model");
+             Console.WriteLine(dbManager.SearchMachineById(id));
+             Console.ReadLine();
+    }
+    
+    public void SearchMachineByIdInnput()
+    {
+        int id = TryGetInt("Enter Machine ID");
+        if (dbManager.SearchMachineById(id) != null)
+        {
+            Console.WriteLine("Machine ID\tMachine Location\t\t   Maichine Model");
+            Console.WriteLine(dbManager.SearchMachineById(id));
+            Console.ReadLine();
+        }
+    }
+    
+    public void PrintMachineList()
+    {
+        Console.WriteLine("\n------------------------------------------- Machine List ---------------------------------------\n");
+        try
+        {
+            if (dbManager.GetMachineList().Count() != 0)
+            {
+                Console.WriteLine("Machine ID\tMachine Location\t\t   Maichine Model");
+                foreach (var item in dbManager.GetMachineList())
+                {
+                    Console.WriteLine(item);  
+                }
+                Console.ReadLine();
+            }
+        }
+        catch (Exception e)
+      {
+        
+        throw new ArgumentNullException("Products not found!",e);
+      } 
+
+    }
+    
     public void updateProductByIdInput()
     {
         int id = TryGetInt("Enter product ID to be updated");
@@ -21,7 +76,7 @@ public class UserInput
         Console.ReadLine();
     }
 
-    public void PrintAddedProduct()
+    public void AddProductInput()
     {
        string insertName = GetString("Enter product name: ");
              int id = dbManager.AddProduct(insertName);

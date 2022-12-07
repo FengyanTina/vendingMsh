@@ -60,4 +60,25 @@ public class DataManager
     {
         productDB.UpdateProductById(id,name);
     }
+
+    public List<Machine> GetMachineList()
+    {
+        return machineDB.GetMachines();
+    }
+
+    public Machine SearchMachineById(int id)
+    {
+        return machineDB.SearchMachineById(id);
+    }
+
+     public int AddMachine(string location, string model)
+    {
+        return machineDB.InsertMachine(location,model);
+    }
+
+    public void RemoveMachineById(int id)
+    {
+        machineDB.DeleteMachineById(id);
+    }
+
 }

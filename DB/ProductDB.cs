@@ -56,7 +56,7 @@ public class ProductDB
         var deletedproduct = connection.Query<Product>(@$"DELETE FROM `products` WHERE product_id = {id};");
     }
 
-    public void UpdateProductById(int id,string newname)
+    public void UpdateProductById(int id,string newname) //tested
     {
          Open();
         var updateproduct = connection.Query<Product>(@$"UPDATE `products` SET product_name = '{newname}'WHERE product_id = {id};");

@@ -1,4 +1,4 @@
-public class Mashine
+public class Machine
 {
     public int machine_id{get;set;}
     public string? machine_location{get;set;}
@@ -6,6 +6,6 @@ public class Mashine
 
     public override string ToString()
     {
-        return @$"Machine ID" + " " + machine_id + "\nMachine Location" + " " + machine_location + "\nMachine Model" + " " + machine_model;
+        return "\t" + machine_id + "\t" +  machine_location + "\t\t " + machine_model;
     }
 }
