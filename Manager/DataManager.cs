@@ -26,9 +26,9 @@ public class DataManager
        orderDB.UpdateOrderMachineEmployeeById(orderId,employeeId,machineId);
     }
 
-    public RefillOrder GetOrderDetailsByOrderProductId(int orderId,int productId)
+    public RefillOrder ShowUppdateOrderDetailsByOrderProductId(int orderId, int productId)
     {
-       return orderDB.SearchOrderDetailsByOrderProductId(orderId,productId);
+       return orderDB.SearchOrderDetailsByOrderProductId(orderId, productId);
     }
 
      public RefillOrder GetOrderByOrdeId(int orderId)
@@ -44,5 +44,15 @@ public class DataManager
     public Product GetProductByName(string name)
     {
         return productDB.SearchProductByName(name);
+    }
+
+    public int AddProduct(string name)
+    {
+        return productDB.InsertProduct(name);
+    }
+
+    public void RemoveProductById(int id)
+    {
+        productDB.DeleteProductById(id);
     }
 }

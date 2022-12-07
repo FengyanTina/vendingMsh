@@ -2,6 +2,26 @@ public class UserInput
 {
     DataManager dbManager = new();
 
+    public void DeleteProductInput()
+    {
+        int id = TryGetInt("Enter product ID to be deleted");
+        dbManager.RemoveProductById(id);
+        Console.WriteLine("Product has been removed!");
+        Console.ReadLine();
+    }
+    public void PrintAddedProduct()
+    {
+       string insertName = GetString("Enter product name: ");
+             int id = dbManager.AddProduct(insertName);
+             Console.WriteLine("------- Added Product ID ------");
+             Console.WriteLine(id);
+             Console.WriteLine("-------- Added Product ------");
+             Console.WriteLine("Product ID\tProduct Name");
+             Console.WriteLine(dbManager.GetProductByName(insertName));
+             Console.ReadLine();
+         
+    }
+
     public void PrintProduct()
     {
          string searchName = GetString("Enter product name: ");
@@ -77,7 +97,7 @@ public class UserInput
         dbManager.UpdateOrderProductById(orderId,productId,productQuantity,newProductId);
         Console.WriteLine ("Order has been updated, new order details is: ");
         Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
-        Console.WriteLine(dbManager.GetOrderDetailsByOrderProductId(orderId,newProductId));
+        Console.WriteLine(dbManager.ShowUppdateOrderDetailsByOrderProductId(orderId,newProductId));
     }
 
     public void PrintOrderListByMachineId()
@@ -91,6 +111,29 @@ public class UserInput
             {
                 Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
                 foreach (var item in dbManager.GetRefillOrdersByMachineId(machineId))
+                {
+                    Console.WriteLine(item + " \n");
+                }
+            }
+        }
+         catch (Exception e)
+        {
+            throw new ArgumentNullException("Order list not found",e);
+        }
+        Console.ReadLine(); 
+    }
+
+    public void PrintOrderListByOrderId()
+    {
+        Console.WriteLine("\n---------------------------------------------- Order List By OrderID -------------------------------------------\n");
+        int orderId = TryGetInt("Order Id: ");
+
+        try
+        {
+            if (dbManager.GetRefillOrdersByMachineId(orderId).Count() != 0)
+            {
+                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
+                foreach (var item in dbManager.GetRefillOrdersByMachineId(orderId))
                 {
                     Console.WriteLine(item + " \n");
                 }

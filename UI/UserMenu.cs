@@ -34,7 +34,7 @@ public class UserMenu
                     break;
 
                 case OrderCategory.SearchOrderByOrderId:
-                     userInput.PrintOrderListByMachineId();
+                     userInput.PrintOrderListByOrderId();
                     break;
 
                 case OrderCategory.AddOrder:
@@ -65,10 +65,11 @@ public class UserMenu
             switch (productChoice)
             {
                 case ProductCategory.AddProduct:
+                     userInput.PrintAddedProduct();
                     break;
 
                 case ProductCategory.DeleteProductById:
-                    
+                    userInput.DeleteProductInput();
                     break;
 
                 case ProductCategory.ShowProductList:
