@@ -40,4 +40,9 @@ public class DataManager
     {
        return productDB.GetProducts();
     }
+
+    public Product GetProductByName(string name)
+    {
+        return productDB.SearchProductByName(name);
+    }
 }

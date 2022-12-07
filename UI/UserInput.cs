@@ -2,6 +2,17 @@ public class UserInput
 {
     DataManager dbManager = new();
 
+    public void PrintProduct()
+    {
+         string searchName = GetString("Enter product name: ");
+        if(dbManager.GetProductByName(searchName)!=null)
+        {
+             Console.WriteLine("Product ID\tProduct Name");
+             Console.WriteLine(dbManager.GetProductByName(searchName));
+             Console.ReadLine();
+        }
+    }
+
     public void PrintProductList()
     {
         Console.WriteLine("\n------------------------------------------- Product List ---------------------------------------\n");
@@ -12,8 +23,9 @@ public class UserInput
                 Console.WriteLine("Product ID\tProduct Name");
                 foreach (var item in dbManager.GetProductList())
                 {
-                    Console.WriteLine(item);
+                    Console.WriteLine(item);  
                 }
+                Console.ReadLine();
             }
         }
         catch (Exception e)
@@ -23,6 +35,7 @@ public class UserInput
       } 
 
     }
+
     public void SearchOrderByOrderIdInput()
     {
        int orderId= TryGetInt("Enter searching order ID: ");

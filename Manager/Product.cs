@@ -5,6 +5,6 @@ public class Product
     
     public override string ToString()
     {
-        return product_id + "    " + product_name ;
+        return @$"  " + product_id + "\t\t " + product_name ;
     }
 }

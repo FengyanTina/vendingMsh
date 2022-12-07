@@ -75,8 +75,8 @@ public class UserMenu
                     userInput.PrintProductList();
                     break;
 
-                case ProductCategory.ShowProductByMachinId:
-                   
+                case ProductCategory.SearchProductByName:
+                   userInput.PrintProduct();
                     break;
 
                 case ProductCategory.UppdateProduct:
@@ -296,7 +296,7 @@ public enum ProductCategory
     AddProduct,
     UppdateProduct,
     DeleteProductById,
-    ShowProductByMachinId,
+    SearchProductByName,
     Quit,
 }
 

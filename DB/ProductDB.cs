@@ -34,4 +34,11 @@ public class ProductDB
         var products = connection.Query<Product>("SELECT product_id, product_name FROM products;").ToList();
         return products;
     }
+
+    public Product SearchProductByName(string name)
+    {
+        Open();
+        var product = connection.QuerySingle<Product>(@$"SELECT * FROM `products` WHERE product_name = '{name}';");
+        return product;
+    }
 }
