@@ -56,7 +56,7 @@ SET r.employee_id = 1,
 4. Show salesdetails with machine id, product name, sales product_price, sale quantiry and sale_date group by product id [Done]
 
 
-SELECT products.product_id,products.product_name,sales.machine_id,sales.sale_date,saledetails.product_price,sum(saledetails.sale_quantity) AS TotalQuantity,(saledetails.product_price*SUM(saledetails.sale_quantity)) AS TotalMoney
+SELECT sales.sale_id,products.product_id,products.product_name,sales.machine_id,sales.sale_date,saledetails.product_price,sum(saledetails.sale_quantity) AS sale_quantity,(saledetails.product_price*SUM(saledetails.sale_quantity)) AS sale_totalMoney
 FROM ((products 
 LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
 LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)

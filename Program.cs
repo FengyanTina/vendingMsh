@@ -2,6 +2,7 @@
 {
     private static void Main(string[] args)
     {
+         
         UserMenu menu = new();
         UserInput Input = new();
         Category category = menu.CategorySwitch();
