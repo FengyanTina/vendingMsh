@@ -55,4 +55,9 @@ public class DataManager
     {
         productDB.DeleteProductById(id);
     }
+
+    public void UpdateProductById(int id, string name)
+    {
+        productDB.UpdateProductById(id,name);
+    }
 }

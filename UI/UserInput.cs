@@ -2,6 +2,17 @@ public class UserInput
 {
     DataManager dbManager = new();
 
+    public void updateProductByIdInput()
+    {
+        int id = TryGetInt("Enter product ID to be updated");
+        string name = GetString("Enter new product name");
+        dbManager.UpdateProductById(id,name);
+        Console.WriteLine ("-------- updated Product ------");
+        Console.WriteLine("Product ID\tProduct Name");
+        Console.WriteLine (dbManager.GetProductByName(name));
+        Console.ReadLine ();
+    }
+    
     public void DeleteProductInput()
     {
         int id = TryGetInt("Enter product ID to be deleted");
@@ -9,6 +20,7 @@ public class UserInput
         Console.WriteLine("Product has been removed!");
         Console.ReadLine();
     }
+
     public void PrintAddedProduct()
     {
        string insertName = GetString("Enter product name: ");
@@ -169,7 +181,7 @@ public class UserInput
     
     public string GetString(string prompt)
     {
-        Console.Write(prompt);
+        Console.WriteLine(prompt);
 
         return Console.ReadLine();
     }

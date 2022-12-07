@@ -81,7 +81,7 @@ public class UserMenu
                     break;
 
                 case ProductCategory.UppdateProduct:
-                   
+                   userInput.updateProductByIdInput();
                     break;
 
                 case ProductCategory.Quit:
