@@ -26,38 +26,38 @@ public class EmployeeDB
         }
     }
 
-     public List<Machine> GetMachines() //tested
+     public List<Employee> GetEmployees() //tested
     {
         Open();
-        var machines = connection.Query<Machine>("SELECT machine_id, machine_location, machine_model FROM machines;").ToList();
-        return machines;
+        var employees = connection.Query<Employee>("SELECT employee_id, employee_location, employee_model FROM employees;").ToList();
+        return employees;
     }
 
-    public Machine SearchMachineById(int id)//tested
+    public Employee SearchMachineById(int id)//tested
     {
         Open();
-        var machine = connection.QuerySingle<Machine>(@$"SELECT * FROM `machines` WHERE machine_id = {id};");
-        return machine;
+        var employee = connection.QuerySingle<Employee>(@$"SELECT * FROM `employees` WHERE employee_id = {id};");
+        return employee;
     }
 
-    public int InsertMachine(string location, string model) //tested
+    public int InsertEmployee(string location, string model) //tested
     {
          Open();
-        string sql = @$"INSERT INTO machines (machine_location,machine_model) VALUES ('{location}','{model}');SELECT LAST_INSERT_ID();";
+        string sql = @$"INSERT INTO employees (employee_location,employee_model) VALUES ('{location}','{model}');SELECT LAST_INSERT_ID();";
         int id = connection.QuerySingle<int>(sql);
         return id;
     }
 
-    public void DeleteMachineById(int id) //tested
+    public void DeleteEmployeeById(int id) //tested
     {
          Open();
-        var deletedmachine = connection.Query<Product>(@$"DELETE FROM `machines` WHERE machine_id = {id};");
+        var deletedEmployee = connection.Query<Product>(@$"DELETE FROM `employees` WHERE employee_id = {id};");
     }
 
-    public void UpdateMachineById(int id,string newLocation, string newModel) 
+    public void UpdateEmployeeById(int id,string newLocation, string newModel) 
     {
          Open();
-        var updatedMachine = connection.Query<Machine>(@$"UPDATE `machines` SET machine_location = '{newLocation}',machine_model = '{newModel}' WHERE product_id = {id};");
+        var updatedEmployee = connection.Query<Employee>(@$"UPDATE `employees` SET employee_location = '{newLocation}',employee_model = '{newModel}' WHERE employee_id = {id};");
     }
     
 
