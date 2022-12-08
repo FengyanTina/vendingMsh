@@ -26,14 +26,28 @@ public class RefillOrderDB
         }
     }
 
-    public int InsertRefillOrder(int typeID, int statusID, double price)
+    public int InsertOrderDetailspublic (int refillOrderID, int productID, double productPrice,int quantity)
     {
         Open();
         var r = new DynamicParameters();
-        r.Add("@roomType_id", typeID);
-        r.Add("@roomStatus_id", statusID);
-        r.Add("@room_price", price);
-        string sql = $@"INSERT INTO rooms (roomType_id, roomStatus_id, room_price) VALUES (@roomType_id,@roomStatus_id,@room_price); SELECT LAST_INSERT_ID() ";
+        r.Add("@refillorder_id", refillOrderID);
+        r.Add("@product_id", productID);
+        r.Add("@product_price", productPrice);
+        r.Add("@order_quantity", quantity);
+        string sql = $@"INSERT INTO rooms (refillorder_id, product_id, product_price,order_quantity) VALUES (@refillorder_id,@product_id,product_price,order_quantity); SELECT LAST_INSERT_ID() ";
+        int Id = connection.Query<int>(sql, r).First();
+        return Id;
+    }
+
+    public int InsertRefillOrder(int machineID, int employeeID, DateTime date,bool status)
+    {
+        Open();
+        var r = new DynamicParameters();
+        r.Add("@machine_id", machineID);
+        r.Add("@employee_id", employeeID);
+        r.Add("@order_date", date);
+         r.Add("@order_status", status);
+        string sql = $@"INSERT INTO refillorders (machine_id, employee_id, order_date,order_status) VALUES (@machine_id,@employee_id,@order_date,@order_status); SELECT LAST_INSERT_ID() ";
         int Id = connection.Query<int>(sql, r).First();
         return Id;
     }

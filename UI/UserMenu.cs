@@ -38,7 +38,7 @@ public class UserMenu
                     break;
 
                 case OrderCategory.AddOrder:
-                   
+                   userInput.AddRefillOrderInput();
                     break;
 
                 case OrderCategory.Quit:

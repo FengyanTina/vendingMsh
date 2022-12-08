@@ -203,6 +203,25 @@ public class UserInput
 
     }
 
+     public void AddRefillOrderInput()
+    {
+        Console.WriteLine("Enter order Date:");
+        DateTime orderDate = DateTime.Parse(Console.ReadLine());
+        int employeeId = TryGetInt("Enter employee ID: ");
+        int machineId = TryGetInt("Enter machine ID: ");
+        Console.WriteLine("Order Status(True/False):");
+        bool status= Convert.ToBoolean(Console.ReadLine());
+        int id1 = dbManager.AddRefillOrder(machineId, employeeId, orderDate,status);
+        Console.WriteLine("----------- Added RefillOrder ID ------");
+        Console.WriteLine(id1);
+        Console.ReadLine();
+        Console.WriteLine("------------------------- Added Refillorder ------------------------------");
+        
+      
+        // Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
+        // Console.WriteLine(dbManager.GetOrderByOrdeId(id1));
+    }
+    
     public void SearchOrderByOrderIdInput()
     {
         int orderId = TryGetInt("Enter searching order ID: ");

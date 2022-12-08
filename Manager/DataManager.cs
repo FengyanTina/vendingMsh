@@ -16,6 +16,11 @@ public class DataManager
        return orderDB.SearchOrderByMachineId(id);
     }
 
+    public int AddRefillOrder(int machineID, int employeeID, DateTime date,bool status)
+    {
+        return orderDB.InsertRefillOrder(machineID,employeeID,date,status);
+    }
+
     public void UpdateOrderProductById(int orderId, int productId, int productQuantity, int newProductId)
     {
        orderDB.UpdateOrderProductById(orderId,productId,productQuantity,newProductId);
