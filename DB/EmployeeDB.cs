@@ -29,35 +29,35 @@ public class EmployeeDB
      public List<Employee> GetEmployees() //tested
     {
         Open();
-        var employees = connection.Query<Employee>("SELECT employee_id, employee_location, employee_model FROM employees;").ToList();
+        var employees = connection.Query<Employee>("SELECT * FROM employee;").ToList();
         return employees;
     }
 
-    public Employee SearchMachineById(int id)//tested
+    public Employee SearchEmployeeById(int id)//tested
     {
         Open();
-        var employee = connection.QuerySingle<Employee>(@$"SELECT * FROM `employees` WHERE employee_id = {id};");
+        var employee = connection.QuerySingle<Employee>(@$"SELECT * FROM `employee` WHERE employee_id = {id};");
         return employee;
     }
 
-    public int InsertEmployee(string location, string model) //tested
+    public int InsertEmployee(string name, string email,string phoneNr) //tested
     {
          Open();
-        string sql = @$"INSERT INTO employees (employee_location,employee_model) VALUES ('{location}','{model}');SELECT LAST_INSERT_ID();";
+        string sql = @$"INSERT INTO employee (employee_name,employee_email,employee_phone) VALUES ('{name}','{email}','{phoneNr}');SELECT LAST_INSERT_ID();";
         int id = connection.QuerySingle<int>(sql);
         return id;
     }
 
-    public void DeleteEmployeeById(int id) //tested
+    public void DeleteEmployeeById(int id)  //tested
     {
          Open();
-        var deletedEmployee = connection.Query<Product>(@$"DELETE FROM `employees` WHERE employee_id = {id};");
+        var deletedEmployee = connection.Query<Product>(@$"DELETE FROM `employee` WHERE employee_id = {id};");
     }
 
-    public void UpdateEmployeeById(int id,string newLocation, string newModel) 
+    public void UpdateEmployeeById(int id,string name, string email,string phone) //trsted
     {
          Open();
-        var updatedEmployee = connection.Query<Employee>(@$"UPDATE `employees` SET employee_location = '{newLocation}',employee_model = '{newModel}' WHERE employee_id = {id};");
+        var updatedEmployee = connection.Query<Employee>(@$"UPDATE `employee` SET employee_name = '{name}',employee_email = '{email}',employee_phone = '{phone}' WHERE employee_id = {id};");
     }
     
 

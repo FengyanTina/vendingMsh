@@ -2,39 +2,107 @@ public class UserInput
 {
     DataManager dbManager = new();
 
-    public void updatedMachineInput()
+     public void DeleteEmployeeByIdInput()
+    {
+        int id = TryGetInt("Enter employee ID to be deleted");
+        dbManager.RemoveEmployeeById(id);
+        Console.WriteLine("Employee has been removed!");
+        Console.ReadLine();
+    }
+     
+     public void UpdateEmployeeInput()
+    {
+        int id = TryGetInt("Enter employee id to be updated:");
+        string name = GetString("Enter employee name: ");
+        string email = GetString("Enter employee email:");
+        string phone = GetString("Enter employee phone:");
+        dbManager.UpdateEmployeeById(id,name, email, phone);
+        Console.WriteLine("-------- Updated Employee ------");
+        Console.WriteLine("Employee ID " + "\t\t" + "Employee Name" + "\t\t" + "Employee Phone" + "\t\t" + "Employee Email\n");
+        Console.WriteLine(dbManager.SearchEmployeeById(id));
+        Console.ReadLine();
+    }
+    
+    public void AddEmployeeInput()
+    {
+        string name = GetString("Enter employee name: ");
+        string email = GetString("Enter employee email:");
+        string phone = GetString("Enter employee phone:");
+        int id = dbManager.AddEmployee(name, email, phone);
+        Console.WriteLine("------- Added Employee ID ------");
+        Console.WriteLine(id);
+        Console.WriteLine("------------------- Added Employee -------------------");
+        Console.WriteLine("Employee ID " + "\t\t" + "Employee Name" + "\t\t" + "Employee Phone" + "\t\t" + "Employee Email\n");
+        Console.WriteLine(dbManager.SearchEmployeeById(id));
+        Console.ReadLine();
+    }
+
+    public void SearchEmployeeByIdInnput()
+    {
+        int id = TryGetInt("Enter Employee ID");
+        if (dbManager.SearchEmployeeById(id) != null)
+        {
+            Console.WriteLine("Employee ID " + "\t\t" + "Employee Name" + "\t\t" + "Employee Phone" + "\t\t" + "Employee Email\n");
+            Console.WriteLine(dbManager.SearchEmployeeById(id));
+            Console.ReadLine();
+        }
+    }
+
+    public void PrintEmployeeList()
+    {
+        Console.WriteLine("\n------------------------------------------- Employee List ---------------------------------------\n");
+        try
+        {
+            if (dbManager.GetEmployees().Count() != 0)
+            {
+                Console.WriteLine("Employee ID " + "\t\t" + "Employee Name" + "\t\t" + "Employee Phone" + "\t\t" + "Employee Email\n");
+                foreach (var item in dbManager.GetEmployees())
+                {
+                    Console.WriteLine(item);
+                }
+                Console.ReadLine();
+            }
+        }
+        catch (Exception e)
+        {
+
+            throw new ArgumentNullException("Products not found!", e);
+        }
+    }
+
+    public void UpdatedMachineInput()
     {
         int id = TryGetInt("Enter Machine ID");
         string newLocation = GetString("Enter new location");
         string newModel = GetString("Enter new model ");
-        dbManager.UpdateMachineById(id,newLocation,newModel);
+        dbManager.UpdateMachineById(id, newLocation, newModel);
         Console.WriteLine("------------------ Updated Machine -------------------");
         Console.WriteLine("Machine ID\tMachine Location\t\tMaichine Model");
         Console.WriteLine(dbManager.SearchMachineById(id));
         Console.ReadLine();
     }
-    
+
     public void DeleteMachineInput()
     {
         int id = TryGetInt("Enter Machine id to be deleted");
         dbManager.RemoveMachineById(id);
-         Console.WriteLine("Machine has been removed!");
+        Console.WriteLine("Machine has been removed!");
         Console.ReadLine();
     }
-    
+
     public void AddMachineInput()
     {
-            string location = GetString("Enter machine location: ");
-            string model = GetString("Enter machine model:");
-            int id = dbManager.AddMachine(location,model);
-             Console.WriteLine("------- Added Machine ID ------");
-             Console.WriteLine(id);
-             Console.WriteLine("-------- Added Machine ------");
-             Console.WriteLine("Machine ID\tMachine Location\t\tMaichine Model");
-             Console.WriteLine(dbManager.SearchMachineById(id));
-             Console.ReadLine();
+        string location = GetString("Enter machine location: ");
+        string model = GetString("Enter machine model:");
+        int id = dbManager.AddMachine(location, model);
+        Console.WriteLine("--------- Added Machine ID ------");
+        Console.WriteLine(id);
+        Console.WriteLine("------------ Added Machine -----------");
+        Console.WriteLine("Machine ID\tMachine Location\t\tMaichine Model");
+        Console.WriteLine(dbManager.SearchMachineById(id));
+        Console.ReadLine();
     }
-    
+
     public void SearchMachineByIdInnput()
     {
         int id = TryGetInt("Enter Machine ID");
@@ -45,7 +113,7 @@ public class UserInput
             Console.ReadLine();
         }
     }
-    
+
     public void PrintMachineList()
     {
         Console.WriteLine("\n------------------------------------------- Machine List ---------------------------------------\n");
@@ -56,30 +124,30 @@ public class UserInput
                 Console.WriteLine("Machine ID\tMachine Location\t\t   Maichine Model");
                 foreach (var item in dbManager.GetMachineList())
                 {
-                    Console.WriteLine(item);  
+                    Console.WriteLine(item);
                 }
                 Console.ReadLine();
             }
         }
         catch (Exception e)
-      {
-        
-        throw new ArgumentNullException("Products not found!",e);
-      } 
+        {
+
+            throw new ArgumentNullException("Products not found!", e);
+        }
 
     }
-    
-    public void updateProductByIdInput()
+
+    public void UpdateProductByIdInput()
     {
         int id = TryGetInt("Enter product ID to be updated");
         string name = GetString("Enter new product name");
-        dbManager.UpdateProductById(id,name);
-        Console.WriteLine ("-------- updated Product ------");
+        dbManager.UpdateProductById(id, name);
+        Console.WriteLine("-------- updated Product ------");
         Console.WriteLine("Product ID\tProduct Name");
-        Console.WriteLine (dbManager.GetProductByName(name));
-        Console.ReadLine ();
+        Console.WriteLine(dbManager.GetProductByName(name));
+        Console.ReadLine();
     }
-    
+
     public void DeleteProductInput()
     {
         int id = TryGetInt("Enter product ID to be deleted");
@@ -90,25 +158,25 @@ public class UserInput
 
     public void AddProductInput()
     {
-       string insertName = GetString("Enter product name: ");
-             int id = dbManager.AddProduct(insertName);
-             Console.WriteLine("------- Added Product ID ------");
-             Console.WriteLine(id);
-             Console.WriteLine("-------- Added Product ------");
-             Console.WriteLine("Product ID\tProduct Name");
-             Console.WriteLine(dbManager.GetProductByName(insertName));
-             Console.ReadLine();
-         
+        string insertName = GetString("Enter product name: ");
+        int id = dbManager.AddProduct(insertName);
+        Console.WriteLine("------- Added Product ID ------");
+        Console.WriteLine(id);
+        Console.WriteLine("-------- Added Product ------");
+        Console.WriteLine("Product ID\tProduct Name");
+        Console.WriteLine(dbManager.GetProductByName(insertName));
+        Console.ReadLine();
+
     }
 
     public void PrintProduct()
     {
-         string searchName = GetString("Enter product name: ");
-        if(dbManager.GetProductByName(searchName)!=null)
+        string searchName = GetString("Enter product name: ");
+        if (dbManager.GetProductByName(searchName) != null)
         {
-             Console.WriteLine("Product ID\tProduct Name");
-             Console.WriteLine(dbManager.GetProductByName(searchName));
-             Console.ReadLine();
+            Console.WriteLine("Product ID\tProduct Name");
+            Console.WriteLine(dbManager.GetProductByName(searchName));
+            Console.ReadLine();
         }
     }
 
@@ -122,61 +190,61 @@ public class UserInput
                 Console.WriteLine("Product ID\tProduct Name");
                 foreach (var item in dbManager.GetProductList())
                 {
-                    Console.WriteLine(item);  
+                    Console.WriteLine(item);
                 }
                 Console.ReadLine();
             }
         }
         catch (Exception e)
-      {
-        
-        throw new ArgumentNullException("Products not found!",e);
-      } 
+        {
+
+            throw new ArgumentNullException("Products not found!", e);
+        }
 
     }
 
     public void SearchOrderByOrderIdInput()
     {
-       int orderId= TryGetInt("Enter searching order ID: ");
-       
-      try
-      {
-        if ((dbManager.GetOrderByOrdeId(orderId)!=null))
+        int orderId = TryGetInt("Enter searching order ID: ");
+
+        try
         {
-            Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
-            Console.WriteLine( dbManager.GetOrderByOrdeId(orderId));  
+            if ((dbManager.GetOrderByOrdeId(orderId) != null))
+            {
+                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
+                Console.WriteLine(dbManager.GetOrderByOrdeId(orderId));
+            }
         }
-      }
-      catch (Exception e)
-      {
-        
-        throw new ArgumentNullException("Order not found!",e);
-      } 
+        catch (Exception e)
+        {
+
+            throw new ArgumentNullException("Order not found!", e);
+        }
     }
 
     public void UpdateOrderMachineEmployeeByIdInput()
     {
-        int orderId= TryGetInt("Enter updateing order ID: ");
-        int employeeId= TryGetInt("Enter new employee ID: ");
-        int machineId= TryGetInt("Enter new machine ID: ");
-        
-        dbManager.UpdateOrderMachineEmployeeById(orderId, employeeId,machineId);
-        Console.WriteLine ("Order has been updated, new order details is: ");
+        int orderId = TryGetInt("Enter updateing order ID: ");
+        int employeeId = TryGetInt("Enter new employee ID: ");
+        int machineId = TryGetInt("Enter new machine ID: ");
+
+        dbManager.UpdateOrderMachineEmployeeById(orderId, employeeId, machineId);
+        Console.WriteLine("Order has been updated, new order details is: ");
         Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
         Console.WriteLine(dbManager.GetOrderByOrdeId(orderId));
     }
 
     public void UpdateOrderProductByIdInput()
     {
-        int orderId= TryGetInt("Enter updateing order ID: ");
-        int productId= TryGetInt("Enter updateing product ID: ");
-        int newProductId= TryGetInt("Enter new product ID: ");
-        int productQuantity= TryGetInt("Enter updateing prodct Quantity: ");
-        
-        dbManager.UpdateOrderProductById(orderId,productId,productQuantity,newProductId);
-        Console.WriteLine ("Order has been updated, new order details is: ");
+        int orderId = TryGetInt("Enter updateing order ID: ");
+        int productId = TryGetInt("Enter updateing product ID: ");
+        int newProductId = TryGetInt("Enter new product ID: ");
+        int productQuantity = TryGetInt("Enter updateing prodct Quantity: ");
+
+        dbManager.UpdateOrderProductById(orderId, productId, productQuantity, newProductId);
+        Console.WriteLine("Order has been updated, new order details is: ");
         Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\n");
-        Console.WriteLine(dbManager.ShowUppdateOrderDetailsByOrderProductId(orderId,newProductId));
+        Console.WriteLine(dbManager.ShowUppdateOrderDetailsByOrderProductId(orderId, newProductId));
     }
 
     public void PrintOrderListByMachineId()
@@ -195,11 +263,11 @@ public class UserInput
                 }
             }
         }
-         catch (Exception e)
+        catch (Exception e)
         {
-            throw new ArgumentNullException("Order list not found",e);
+            throw new ArgumentNullException("Order list not found", e);
         }
-        Console.ReadLine(); 
+        Console.ReadLine();
     }
 
     public void PrintOrderListByOrderId()
@@ -220,14 +288,14 @@ public class UserInput
         }
         catch (Exception e)
         {
-            throw new ArgumentNullException("Order list not found",e);
+            throw new ArgumentNullException("Order list not found", e);
         }
-        Console.ReadLine(); 
+        Console.ReadLine();
     }
 
     public void PrintOrderList()
     {
-         Console.WriteLine("\n------------------------------------------- Order List ---------------------------------------\n");
+        Console.WriteLine("\n------------------------------------------- Order List ---------------------------------------\n");
         try
         {
             if (dbManager.GetRefillOrders().Count() != 0)
@@ -241,11 +309,11 @@ public class UserInput
         }
         catch (Exception e)
         {
-            throw new ArgumentNullException("Order list not found",e);
+            throw new ArgumentNullException("Order list not found", e);
         }
         Console.ReadLine();
     }
-    
+
     public string GetString(string prompt)
     {
         Console.WriteLine(prompt);

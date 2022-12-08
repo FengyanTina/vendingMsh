@@ -7,6 +7,6 @@ public class Employee
     
     public override string ToString()
     {
-        return $"Employee ID: "  + " " + "Employee Name"  + " " + "Employee Phone"  + " " + "Employee Email" + "\n" + employee_id + " " + employee_name  + " " + employee_phone  + " " + employee_email;
+        return employee_id + "\t\t\t" + employee_name  + "\t\t" + employee_phone  + "\t\t" + employee_email;
     }
 }

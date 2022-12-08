@@ -81,7 +81,7 @@ public class UserMenu
                     break;
 
                 case ProductCategory.UppdateProduct:
-                   userInput.updateProductByIdInput();
+                   userInput.UpdateProductByIdInput();
                     break;
 
                 case ProductCategory.Quit:
@@ -124,7 +124,7 @@ public class UserMenu
                     break;
 
                 case MachineCategory.UppdateMachine:
-                   userInput.updatedMachineInput();
+                   userInput.UpdatedMachineInput();
                     break;
 
                 case MachineCategory.Quit:
@@ -189,19 +189,22 @@ public class UserMenu
             switch (employeeChoice)
             {
                 case EmployeeCategory.AddEmployee:
-                    userInput.PrintOrderList();
+                   userInput.AddEmployeeInput();
                     break;
 
                 case EmployeeCategory.DeleteEmployeeById:
-                    
+                    userInput.DeleteEmployeeByIdInput();
                     break;
 
                 case EmployeeCategory.SearchEmployee:
-                    
+                    userInput.SearchEmployeeByIdInnput();
                     break;
 
                 case EmployeeCategory.UpdateEmployeeById:
-                   
+                   userInput.UpdateEmployeeInput();
+                    break;
+                 case EmployeeCategory.EmployeeList:
+                    userInput.PrintEmployeeList();
                     break;
 
                 case EmployeeCategory.Quit:
@@ -338,6 +341,7 @@ public enum EmployeeCategory
     SearchEmployee,
     DeleteEmployeeById,
     UpdateEmployeeById,
+    EmployeeList,
     Quit,
 }
 

@@ -86,4 +86,29 @@ public class DataManager
         machineDB.UpdateMachineById(id,location,model);
     }
 
+    public List<Employee> GetEmployees()
+    {
+        return employeeDB.GetEmployees();
+    }
+
+    public Employee SearchEmployeeById(int id)
+    {
+        return employeeDB.SearchEmployeeById(id);
+    }
+
+    public int AddEmployee(string name,string email,string phone)
+    {
+        return employeeDB.InsertEmployee(name,email,phone);
+    }
+
+    public void UpdateEmployeeById(int id,string name,string email,string phone)
+    {
+        employeeDB.UpdateEmployeeById(id,name,email,phone);
+    }
+
+    public void RemoveEmployeeById(int id)
+    {
+        employeeDB.DeleteEmployeeById(id);
+    }
+
 }
