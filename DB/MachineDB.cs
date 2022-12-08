@@ -54,10 +54,10 @@ public class MachineDB
         var deletedmachine = connection.Query<Product>(@$"DELETE FROM `machines` WHERE machine_id = {id};");
     }
 
-    public void UpdateProductById(int id,string newname) 
+    public void UpdateMachineById(int id,string newLocation, string newModel) //tested
     {
          Open();
-        var updateproduct = connection.Query<Product>(@$"UPDATE `products` SET product_name = '{newname}'WHERE product_id = {id};");
+        var updatedMachine = connection.Query<Machine>(@$"UPDATE `machines` SET machine_location = '{newLocation}',machine_model = '{newModel}' WHERE machine_id = {id};");
     }
     
 

@@ -81,4 +81,9 @@ public class DataManager
         machineDB.DeleteMachineById(id);
     }
 
+     public void UpdateMachineById(int id, string location, string model)
+    {
+        machineDB.UpdateMachineById(id,location,model);
+    }
+
 }

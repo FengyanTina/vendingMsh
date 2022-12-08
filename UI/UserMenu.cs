@@ -124,11 +124,10 @@ public class UserMenu
                     break;
 
                 case MachineCategory.UppdateMachine:
-                   
+                   userInput.updatedMachineInput();
                     break;
 
                 case MachineCategory.Quit:
-
                     quit = userInput.QuitMessage();
                     Environment.Exit(0);
                     break;

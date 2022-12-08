@@ -2,6 +2,18 @@ public class UserInput
 {
     DataManager dbManager = new();
 
+    public void updatedMachineInput()
+    {
+        int id = TryGetInt("Enter Machine ID");
+        string newLocation = GetString("Enter new location");
+        string newModel = GetString("Enter new model ");
+        dbManager.UpdateMachineById(id,newLocation,newModel);
+        Console.WriteLine("------------------ Updated Machine -------------------");
+        Console.WriteLine("Machine ID\tMachine Location\t\tMaichine Model");
+        Console.WriteLine(dbManager.SearchMachineById(id));
+        Console.ReadLine();
+    }
+    
     public void DeleteMachineInput()
     {
         int id = TryGetInt("Enter Machine id to be deleted");

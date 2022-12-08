@@ -108,3 +108,7 @@ GROUP BY saledetails.product_id;
 
 
 
+sring inparameter must have ''
+
+
+
