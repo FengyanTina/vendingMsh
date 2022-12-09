@@ -21,6 +21,11 @@ public class DataManager
         return orderDB.InsertRefillOrder(machineID,employeeID,date,status);
     }
 
+     public int AddRefillOrderDetails(int refillOrderID, int productID, double productPrice,int quantity)
+    {
+        return orderDB.InsertOrderDetails(refillOrderID,productID,productPrice,quantity);
+    }
+
     public void UpdateOrderProductById(int orderId, int productId, int productQuantity, int newProductId)
     {
        orderDB.UpdateOrderProductById(orderId,productId,productQuantity,newProductId);
@@ -36,9 +41,9 @@ public class DataManager
        return orderDB.SearchOrderDetailsByOrderProductId(orderId, productId);
     }
 
-     public RefillOrder GetOrderByOrdeId(int orderId)
+     public List<RefillOrder> GetOrderListByOrdeId(int orderId)
     {
-       return orderDB.SearchOrderByOrderId(orderId);
+       return orderDB.SearchOrdersByOrderId(orderId);
     }
 
      public List<Product> GetProductList()
@@ -51,9 +56,14 @@ public class DataManager
         return productDB.SearchProductByName(name);
     }
 
-    public int AddProduct(string name)
+     public Product GetProductById(int id)
     {
-        return productDB.InsertProduct(name);
+        return productDB.SearchProductById(id);
+    }
+
+    public int AddProduct(string name,double oPrice, double sPrice)
+    {
+        return productDB.InsertProduct(name,oPrice,sPrice);
     }
 
     public void RemoveProductById(int id)

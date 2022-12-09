@@ -31,7 +31,7 @@ public class ProductDB
     public List<Product> GetProducts() //tested
     {
         Open();
-        var products = connection.Query<Product>("SELECT product_id, product_name FROM products;").ToList();
+        var products = connection.Query<Product>("SELECT * FROM products;").ToList();
         return products;
     }
 
@@ -42,10 +42,17 @@ public class ProductDB
         return product;
     }
 
-    public int InsertProduct(string name) //tested
+    public Product SearchProductById(int id)//tested
+    {
+        Open();
+        var product = connection.QuerySingle<Product>(@$"SELECT * FROM `products` WHERE product_id = '{id}';");
+        return product;
+    }
+
+    public int InsertProduct(string name,double orderPrice, double salePrice) //tested
     {
          Open();
-        string sql = @$"INSERT INTO products (product_name) VALUES ('{name}');SELECT LAST_INSERT_ID();";
+        string sql = @$"INSERT INTO products (product_name,order_price,sale_price) VALUES ('{name}',{orderPrice},{salePrice});SELECT LAST_INSERT_ID();";
         int id = connection.QuerySingle<int>(sql);
         return id;
     }
