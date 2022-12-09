@@ -53,13 +53,14 @@ SET r.employee_id = 1,
     r.machine_id= 1
         WHERE r.refillOrder_id =3 ;
 
-4. Show salesdetails with machine id, product name, sales product_price, sale quantiry and sale_date group by product id [Done]
+4. Show salesdetails with machine id, product name, sales product_price, sale quantiry and sale_date group by product id [Edeted][done]
 
 
-SELECT sales.sale_id,products.product_id,products.product_name,sales.machine_id,sales.sale_date,saledetails.product_price,sum(saledetails.sale_quantity) AS sale_quantity,(saledetails.product_price*SUM(saledetails.sale_quantity)) AS sale_totalMoney
+SELECT sales.sale_id,products.product_id,products.product_name,sales.machine_id,sales.sale_date,saledetails.product_price,saledetails.sale_quantity AS sale_quantity,(saledetails.product_price*saledetails.sale_quantity) AS sale_totalMoney
 FROM ((products 
 LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
 LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)
+WHERE saledetails.sale_quantity > 0
 GROUP BY products.product_id,sales.machine_id;
 
 
@@ -109,6 +110,16 @@ GROUP BY saledetails.product_id;
 
 
 sring inparameter must have ''
+
+
+SELECT o.product_id,p.product_name,r.machine_id,s.machine_id,o.product_price,o.order_quantity, sd.sale_quantity
+        FROM ((((products p 
+        LEFT JOIN orderdetails o ON p.product_id = o.product_id)
+        LEFT JOIN refillorders r ON r.refillOrder_id = o.refillOrder_id)
+        LEFT JOIN saledetails sd on sd.product_id = p.product_id)
+        LEFT JOIN sales s ON s.sale_id =sd.sale_id)
+        WHERE r.machine_id =1 ANd s.machine_id =1
+        GROUP BY p.product_id,r.machine_id,s.machine_id;
 
 
 

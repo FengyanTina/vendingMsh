@@ -46,6 +46,11 @@ public class DataManager
        return orderDB.SearchOrdersByOrderId(orderId);
     }
 
+    public void RemoveOrderById(int id)
+    {
+        orderDB.DeleteOrderById(id);
+    }
+
      public List<Product> GetProductList()
     {
        return productDB.GetProducts();

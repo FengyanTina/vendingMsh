@@ -250,6 +250,11 @@ public class UserInput
         Console.ReadLine();
     }
     
+    public void ReamoveOrderByIdInput()
+    {
+         int orderId = TryGetInt("Enter searching order ID: ");
+         dbManager.RemoveOrderById(orderId);
+    }
     public void SearchOrderByOrderIdInput()
     {
         int orderId = TryGetInt("Enter searching order ID: ");

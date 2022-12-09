@@ -93,7 +93,7 @@ public class RefillOrderDB
     public void DeleteOrderById(int number)
     {
         Open();
-        
+        var deletedorder = connection.Query<RefillOrder>(@$"DELETE FROM `products` WHERE refillorder_id = {number};");
     }
 
     public List<RefillOrder> RefillOrderList()//tested
