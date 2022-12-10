@@ -40,6 +40,9 @@ public class UserMenu
                 case OrderCategory.AddOrder:
                    userInput.AddRefillOrderInput();
                     break;
+                case OrderCategory.UppdateOrderStatus:
+                   userInput.UpdateOrderStatusByIdInput();
+                    break;
 
                 case OrderCategory.Quit:
 
@@ -323,6 +326,7 @@ public enum OrderCategory
     DeleteOrderById,
     SearchOrderByMachinId,
     SearchOrderListByOrderId,
+    UppdateOrderStatus,
     Quit,
 }
 

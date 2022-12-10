@@ -31,6 +31,11 @@ public class DataManager
        orderDB.UpdateOrderProductById(orderId,productId,productQuantity,newProductId);
     }
 
+     public void UpdateOrderStatustById(int orderId, int employeeId, bool isDone)
+    {
+       orderDB.UpdateOrderStatusById(orderId,employeeId,isDone);
+    }
+
     public void UpdateOrderMachineEmployeeById(int orderId, int employeeId,  int machineId)
     {
        orderDB.UpdateOrderMachineEmployeeById(orderId,employeeId,machineId);

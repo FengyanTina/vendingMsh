@@ -69,10 +69,19 @@ public class RefillOrderDB
             WHERE r.refillOrder_id = {orderId};");
     }
 
+     public void UpdateOrderStatusById(int orderId, int employeeId,  bool isDone)
+    { 
+        Open();
+        var updateOrderstatus = connection.Query<RefillOrder>($@"UPDATE refillorders r
+        SET r.order_status = {isDone},
+           r.checkedBy_employee = {employeeId}
+            WHERE r.refillOrder_id = {orderId};");
+    }
+
      public List<RefillOrder> SearchOrdersByOrderId(int orderId)//tested
     {
         Open();
-        var orders = connection.Query<RefillOrder>($@"SELECT r.refillorder_id,o.product_id,p.product_name,r.machine_id,r.order_date,o.product_price,sum(o.order_quantity) AS order_quantity, (product_price*order_quantity)AS order_totalPay,r.employee_id FROM (((products p LEFT JOIN orderdetails o ON p.product_id = o.product_id) LEFT JOIN refillorders r ON r.refillOrder_id = o.refillOrder_id) INNER JOIN employee e ON e.employee_id = r.employee_id) WHERE o.refillOrder_id = {orderId} GROUP BY o.product_id;").ToList();
+        var orders = connection.Query<RefillOrder>($@"SELECT r.refillorder_id,o.product_id,p.product_name,r.machine_id,r.order_date,o.product_price,sum(o.order_quantity) AS order_quantity, (product_price*order_quantity)AS order_totalPay,r.employee_id,r.checkedBy_employee FROM (((products p LEFT JOIN orderdetails o ON p.product_id = o.product_id) LEFT JOIN refillorders r ON r.refillOrder_id = o.refillOrder_id) INNER JOIN employee e ON e.employee_id = r.employee_id) WHERE o.refillOrder_id = {orderId} GROUP BY o.product_id;").ToList();
         return orders;
     }
 
@@ -81,7 +90,7 @@ public class RefillOrderDB
     public RefillOrder SearchOrderDetailsByOrderProductId(int orderId,int productId) //for uppdate order product//tested
     {
         Open();
-        var order = connection.QuerySingle<RefillOrder>($@"SELECT r.refillorder_id,o.product_id,p.product_name,r.machine_id,r.order_date,o.product_price,o.order_quantity , (product_price*order_quantity)AS order_totalPay,r.employee_id
+        var order = connection.QuerySingle<RefillOrder>($@"SELECT r.refillorder_id,o.product_id,p.product_name,r.machine_id,r.order_date,o.product_price,o.order_quantity , (product_price*order_quantity)AS order_totalPay,r.employee_id,r.checkedBy_employee
         FROM (((products p
         LEFT JOIN orderdetails o ON p.product_id = o.product_id)
         LEFT JOIN refillorders r ON r.refillOrder_id = o.refillOrder_id)
@@ -99,7 +108,7 @@ public class RefillOrderDB
     public List<RefillOrder> RefillOrderList()//tested
     {
         Open();
-        var orders = connection.Query<RefillOrder>($@"SELECT r.refillorder_id,o.product_id,p.product_name,r.machine_id,r.order_date,o.product_price,sum(o.order_quantity) AS order_quantity, (product_price*order_quantity)AS order_totalPay,r.employee_id
+        var orders = connection.Query<RefillOrder>($@"SELECT r.refillorder_id,o.product_id,p.product_name,r.machine_id,r.order_date,o.product_price,sum(o.order_quantity) AS order_quantity, (product_price*order_quantity)AS order_totalPay,r.employee_id,r.checkedBy_employee
         FROM (((products p 
         LEFT JOIN orderdetails o ON p.product_id = o.product_id)
         LEFT JOIN refillorders r ON r.refillOrder_id = o.refillOrder_id)
@@ -111,7 +120,7 @@ public class RefillOrderDB
     public List<RefillOrder> SearchOrderByMachineId(int number)//tested
     {
         Open();
-        var OrderByMachineIdList = connection.Query<RefillOrder>($@"SELECT r.refillorder_id,o.product_id,p.product_name,r.machine_id,r.order_date,o.product_price,sum(o.order_quantity) AS order_quantity, (product_price*order_quantity)AS order_totalPay,r.employee_id
+        var OrderByMachineIdList = connection.Query<RefillOrder>($@"SELECT r.refillorder_id,o.product_id,p.product_name,r.machine_id,r.order_date,o.product_price,sum(o.order_quantity) AS order_quantity, (product_price*order_quantity)AS order_totalPay,r.employee_id,r.checkedBy_employee
         FROM (((products p
         LEFT JOIN orderdetails o ON p.product_id = o.product_id)
         LEFT JOIN refillorders r ON r.refillOrder_id = o.refillOrder_id)

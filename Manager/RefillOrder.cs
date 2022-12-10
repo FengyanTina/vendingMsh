@@ -9,10 +9,12 @@ public class RefillOrder
     public double product_price { get; set; }
     public string? product_name { get; set; }
     public int order_quantity { get; set; }
+    public int checkedBy_employee { get; set; }
+    public bool order_status { get; set; }
     
 
     public override string ToString()
     {
-        return refillorder_id + "\t\t" + product_id + "\t\t" + product_name + "\t" + machine_id +"\t\t" + order_date.ToShortDateString() + "\t\t" + product_price + "\t\t" + order_quantity +  "\t\t" + order_totalPay;
+        return refillorder_id + "\t\t" + product_id + "\t\t" + product_name + "\t" + machine_id +"\t\t" + order_date.ToShortDateString() + "\t\t" + product_price + "\t\t" + order_quantity +  "\t\t" + order_totalPay + "\t\t" + employee_id + "\t\t" + checkedBy_employee;
     }
 }
