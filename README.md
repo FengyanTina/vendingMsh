@@ -85,7 +85,7 @@ GROUP BY products.product_id,machines.machine_id;
 
 
 
-[x?]. Show all the salese products,quantity and money by machine ID  [Done]
+[x]. Show all the salese products,quantity and money by machine ID  [Done]
 SELECT saledetails.product_id,products.product_name,saledetails.product_price,sum(saledetails.sale_quantity) AS TotalQuantity,(saledetails.product_price*sum(saledetails.sale_quantity)) AS TotalMoney
 FROM ((saledetails
 INNER JOIN sales ON saledetails.sale_id = sales.sale_id)
@@ -93,7 +93,21 @@ INNER JOIN products ON products.product_id = saledetails.product_id)
 WHERE sales.machine_id =1
 GROUP BY saledetails.product_id
 ORDER BY TotalQuantity DESC;
-Get the products that not sales
+
+[x]Get the products that not sales as well
+
+WITH st AS (SELECT sd.product_id,sum(sd.sale_quantity) AS Qt
+        FROM saledetails sd
+        INNER JOIN sales s ON s.sale_id = sd.sale_id
+        WHERE s.machine_id = 1
+        GROUP BY sd.product_id )
+SELECT  p.product_id ,p.product_name,st.Qt
+    FROM products p
+    LEFT JOIN saledetails sd
+    ON sd.product_id = p.product_id
+    LEFT OUTER JOIN st
+    ON sd.product_id  = st.product_id
+    GROUP BY p.product_id;
 
       
 
