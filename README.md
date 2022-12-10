@@ -123,3 +123,58 @@ SELECT o.product_id,p.product_name,r.machine_id,s.machine_id,o.product_price,o.o
 
 
 
+
+
+        machine 1 order summary
+        SELECT o.product_id,sum(o.order_quantity)
+        FROM orderdetails o 
+        INNER JOIN refillorders r ON r.refillOrder_id = o.refillOrder_id
+        WHERE r.machine_id =1
+        GROUP BY o.product_id;
+
+
+        machine 1 sale summary
+        SELECT p.product_id, sum(sd.sale_quantity)
+        FROM products p
+        LEFT JOIN saledetails sd on sd.product_id=p.product_id
+        INNER JOIN sales s ON s.sale_id = sd.sale_id
+        WHERE s.machine_id =1
+        GROUP BY p.product_id;
+
+
+
+       WITH sold AS (SELECT saledetails.product_id, saledetails.sale_quantity, 
+                        sum(saledetails.sale_quantity) AS Qt 
+                FROM saledetails
+                JOIN sales
+                    ON sales.sale_id = saledetails.sale_id
+              WHERE sales.machine_id = 1
+                GROUP BY saledetails.product_id
+                )
+SELECT  orderdetails.product_id, orderdetails.product_id , sum(orderdetails.order_quantity),sum(orderdetails.order_quantity)-sold.Qt
+FROM orderdetails
+JOIN refillorders
+    ON orderdetails.refillOrder_id = refillorders.refillOrder_id
+LEFT OUTER JOIN sold
+    ON orderdetails.product_id  = sold.product_id
+    WHERE refillorders.machine_id =1
+
+ WITH sold AS (SELECT saledetails.product_id, saledetails.sale_quantity, 
+                        sum(saledetails.sale_quantity) AS Qt 
+                FROM saledetails
+                JOIN sales
+                    ON sales.sale_id = saledetails.sale_id
+              WHERE sales.machine_id = 1
+                GROUP BY saledetails.product_id
+                )
+SELECT  orderdetails.product_id , sum(orderdetails.order_quantity),sold.Qt,sum(orderdetails.order_quantity)-sold.Qt
+FROM orderdetails
+JOIN refillorders
+    ON orderdetails.refillOrder_id = refillorders.refillOrder_id
+LEFT OUTER JOIN sold
+    ON orderdetails.product_id  = sold.product_id
+    WHERE refillorders.machine_id =1
+    GROUP BY orderdetails.product_id;
+
+
+
