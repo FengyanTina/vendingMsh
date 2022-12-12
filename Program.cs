@@ -1,5 +1,7 @@
 ﻿internal class Program
 {
+   
+
     private static void Main(string[] args)
     {
          
@@ -36,7 +38,7 @@
                     menu.EmployeeChoice();
                     break;
                 case Category.StockChecking:
-                    Input.PrintStockByMachine();
+                    quit = Input.PrintStockByMachine();
                     break;
 
                 case Category.Quit:
