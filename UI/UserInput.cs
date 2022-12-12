@@ -84,7 +84,11 @@ public class UserInput
             {
                 double oPrice = dbManager.GetProductById(item.product_id).order_price;
                 int quantity = 20 - item.Qt;
+                if (item.Qt <20)
+                {
                 int detailId = dbManager.AddRefillOrderDetails(refillOrderId, item.product_id, oPrice, quantity);
+                    
+                }
             }
 
             Console.WriteLine("-------------------------------------------- Added Refillorder Details ------------------------------------------------------------\n");
@@ -99,6 +103,7 @@ public class UserInput
                     }
                     Console.WriteLine("Press Enter To check the stock!");
                 }
+               
             }
             catch (Exception e)
             {
@@ -109,7 +114,8 @@ public class UserInput
         }
         else
         {
-            Environment.Exit(0);
+            UserMenu um = new();
+            um.CategorySwitch();
         }
         
 
