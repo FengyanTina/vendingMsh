@@ -164,8 +164,8 @@ public class UserMenu
                     userInput.PrintSalePerformenceByMachineId();
                     break;
 
-                case SalesCategory.ShowSalesByProductId:
-                   
+                case SalesCategory.ShowSalesPerformanceByProductId:
+                   userInput.PrintSalePerformanceByProductId();
                     break;
 
                 case SalesCategory.Quit:
@@ -335,7 +335,7 @@ public enum SalesCategory
     ShowAllProductSalesList = 1,
     AddSales,
     ShowSalesPerformenceByMachinId,
-    ShowSalesByProductId,
+    ShowSalesPerformanceByProductId,
     Quit,
 }
 

@@ -111,7 +111,7 @@ SELECT  p.product_id ,p.product_name,st.Qt
 
       
 
-[x] Show product salesdetails with machine id, product name, sales product_price, sale quantiry and sale_date group by product id [done]
+[x] Show product salesdetails with product id, product name, sales product_price, sale quantiry and sale_date group by product id [done]
 
 SELECT products.product_id,products.product_name,saledetails.product_price,sum(saledetails.sale_quantity) AS sale_quantity,(saledetails.product_price*sum(saledetails.sale_quantity)) AS sale_totalMoney
 FROM ((products 
@@ -119,8 +119,14 @@ LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
 LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)
 GROUP BY products.product_id;
 
-
-
+[x] Show the same product sales Performence on each machine
+SELECT products.product_id,products.product_name,saledetails.product_price,sum(saledetails.sale_quantity) AS sale_quantity,(saledetails.product_price*sum(saledetails.sale_quantity)) AS sale_totalMoney,sales.machine_id
+FROM ((products 
+LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
+LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)
+WHERE saledetails.product_id = 12
+GROUP BY products.product_id,sales.machine_id;
+ISNULL (saledetails.sale_quantity,'0') AS 0
 string inparameter must have ''
 
   

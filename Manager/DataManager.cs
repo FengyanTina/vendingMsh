@@ -16,9 +16,9 @@ public class DataManager
        return orderDB.SearchOrderByMachineId(id);
     }
 
-    public int AddRefillOrder(int machineID, int employeeID, DateTime date,bool status)
+    public int AddRefillOrder(int machineID, int employeeID, DateTime date,bool status,int id)
     {
-        return orderDB.InsertRefillOrder(machineID,employeeID,date,status);
+        return orderDB.InsertRefillOrder(machineID,employeeID,date,status,id);
     }
 
      public int AddRefillOrderDetails(int refillOrderID, int productID, double productPrice,int quantity)
@@ -136,14 +136,19 @@ public class DataManager
         employeeDB.DeleteEmployeeById(id);
     }
 
-    public List<Sales> GetAllProductSalesList()
+    public List<Sales> GetAllProductTotalSalesPerformence()
     {
-        return saleDB.AllProductSalesList();
+        return saleDB.AllProductTotalSalesList();
     }
 
     public List<Sales> GetSalePerformenceByMachineId(int id)
     {
         return saleDB.SalePerformenceByMachineId(id);
+    }
+
+    public List<Sales> GetSalePerformenceByProductId(int id)
+    {
+        return saleDB.SalePerformenceByProductId(id);
     }
 
 

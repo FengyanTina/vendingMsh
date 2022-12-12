@@ -39,7 +39,7 @@ public class RefillOrderDB
         return Id;
     }
 
-    public int InsertRefillOrder(int machineID, int employeeID, DateTime date,bool status)//tested
+    public int InsertRefillOrder(int machineID, int employeeID, DateTime date,bool status,int id)//tested
     {
         Open();
         var r = new DynamicParameters();
@@ -47,7 +47,8 @@ public class RefillOrderDB
         r.Add("@employee_id", employeeID);
         r.Add("@order_date", date);
          r.Add("@order_status", status);
-        string sql = $@"INSERT INTO refillorders (machine_id, employee_id, order_date,order_status) VALUES (@machine_id,@employee_id,@order_date,@order_status); SELECT LAST_INSERT_ID() ";
+         r.Add("@checkedBy_employee", id);
+        string sql = $@"INSERT INTO refillorders (machine_id, employee_id, order_date,order_status,checkedBy_employee) VALUES (@machine_id,@employee_id,@order_date,@order_status,@checkedBy_employee); SELECT LAST_INSERT_ID() ";
         int Id = connection.Query<int>(sql, r).First();
         return Id;
     }

@@ -2,6 +2,34 @@ public class UserInput
 {
     DataManager dbManager = new();
 
+     public void PrintSalePerformanceByProductId()
+   {
+     Console.WriteLine("\n------------------------------------------- Product SaleList on Different Machine ---------------------------------------\n");
+     int id = TryGetInt("Eenter Product ID:");
+        try
+        {
+            if (dbManager.GetSalePerformenceByProductId(id).Count() != 0)
+            {
+                Console.WriteLine("Product ID " + "\t" + "Product Name" + "\t" + " Sale Price(Kr/unit)"+"\t"+ "Quantity"  +"\t"+ "Total Money(Kr)"+"\t"+ "MachineId\n" );
+                foreach (var item in dbManager.GetSalePerformenceByProductId(id))
+                {
+                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.product_price + "\t\t" + item.sale_quantity + "\t\t" + item.sale_totalMoney+ "\t\t" + item.machine_id);
+                }
+                Console.ReadLine();
+            }
+            else if (dbManager.GetSalePerformenceByProductId(id).Count() != 0)
+            {
+                Console.WriteLine ("Not sold!");
+                Console.ReadLine();
+            }
+        }
+        catch (Exception e)
+        {
+
+            throw new ArgumentNullException("Products not found!", e);
+        }
+   }
+   
     public void PrintSalePerformenceByMachineId()
    {
      Console.WriteLine("\n------------------------------------------- Machine SaleList ---------------------------------------\n");
@@ -17,6 +45,7 @@ public class UserInput
                 }
                 Console.ReadLine();
             }
+            
         }
         catch (Exception e)
         {
@@ -30,10 +59,10 @@ public class UserInput
      Console.WriteLine("\n------------------------------------------- All Product SaleList ---------------------------------------\n");
         try
         {
-            if (dbManager.GetAllProductSalesList().Count() != 0)
+            if (dbManager.GetAllProductTotalSalesPerformence().Count() != 0)
             {
                 Console.WriteLine("Product ID " + "\t" + "Product Name" + "\t" + " Sale Price(Kr/unit)"+"\t"+ "Quantity"  +"\t"+ "Total Money(Kr)\n");
-                foreach (var item in dbManager.GetAllProductSalesList())
+                foreach (var item in dbManager.GetAllProductTotalSalesPerformence())
                 {
                     Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.product_price + "\t\t" + item.sale_quantity + "\t\t" + item.sale_totalMoney);
                 }
@@ -259,9 +288,8 @@ public class UserInput
         DateTime orderDate = DateTime.Parse(Console.ReadLine());
         int employeeId = TryGetInt("Enter employee ID: ");
         int machineId = TryGetInt("Enter machine ID: ");
-        Console.WriteLine("Order Status(True/False):");
-        bool status = Convert.ToBoolean(Console.ReadLine());
-        int refillOrderId = dbManager.AddRefillOrder(machineId, employeeId, orderDate, status);
+        bool status = false;
+        int refillOrderId = dbManager.AddRefillOrder(machineId, employeeId, orderDate, status,employeeId);
         Console.WriteLine("----------- Added RefillOrder ID ------");
         Console.WriteLine(refillOrderId);
         Console.ReadLine();
@@ -281,7 +309,7 @@ public class UserInput
         {
             if (dbManager.GetOrderListByOrdeId(refillOrderId).Count() != 0)
             {
-                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tIsDone\t\tChecked By EmployeeID\n");
+                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tIsDone\t\tOrder By EmployeeID\n");
                 foreach (var item in dbManager.GetOrderListByOrdeId(refillOrderId))
                 {
                     Console.WriteLine(item + " \n");
