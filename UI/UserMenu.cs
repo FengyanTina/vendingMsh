@@ -262,7 +262,7 @@ public class UserMenu
         return productCategory;
     }
 
-     public MachineCategory MachineCategorySwitch()
+    public MachineCategory MachineCategorySwitch()
     {
         foreach (string c in Enum.GetNames(typeof(MachineCategory)))
            { 

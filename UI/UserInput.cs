@@ -27,7 +27,7 @@ public class UserInput
 
     }
     
-     public void PrintSalePerformanceByProductId()
+    public void PrintSalePerformanceByProductId()
    {
      Console.WriteLine("\n------------------------------------------- Product SaleList on Different Machine ---------------------------------------\n");
      int id = TryGetInt("Eenter Product ID:");
@@ -79,7 +79,7 @@ public class UserInput
         }
    }
    
-   public void PrintAllProductSalesList()
+    public void PrintAllProductSalesList()
    {
      Console.WriteLine("\n------------------------------------------- All Product SaleList ---------------------------------------\n");
         try
