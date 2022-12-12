@@ -36,7 +36,7 @@ public class StockDB
             WHERE sales.machine_id = {id}  
             GROUP BY saledetails.product_id)
         SELECT  orderdetails.product_id,products.product_name,sum(orderdetails.order_quantity)AS Oqt,sold.Sqt,
-            (order_quantity-sold.Sqt) AS Qt
+            (sum(orderdetails.order_quantity)-sold.Sqt) AS Qt
         FROM orderdetails
         JOIN refillorders
         ON orderdetails.refillOrder_id = refillorders.refillOrder_id

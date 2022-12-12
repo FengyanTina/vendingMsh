@@ -77,6 +77,34 @@ public class SaleDB
         return sales;
     }
 
+    public int InsertRefillOrder(int machineID, int employeeID, DateTime date,bool status,int id)//tested
+    {
+        Open();
+        var r = new DynamicParameters();
+        r.Add("@machine_id", machineID);
+        r.Add("@employee_id", employeeID);
+        r.Add("@order_date", date);
+         r.Add("@order_status", status);
+         r.Add("@checkedBy_employee", id);
+        string sql = $@"INSERT INTO refillorders (machine_id, employee_id, order_date,order_status,checkedBy_employee) VALUES (@machine_id,@employee_id,@order_date,@order_status,@checkedBy_employee); SELECT LAST_INSERT_ID() ";
+        int Id = connection.Query<int>(sql, r).First();
+        return Id;
+    }
+
+    public int InsertOrderDetails (int refillOrderID, int productID, double productPrice,int quantity)//tested
+    {
+        Open();
+        var r = new DynamicParameters();
+        r.Add("@refillorder_id", refillOrderID);
+        r.Add("@product_id", productID);
+        r.Add("@product_price", productPrice);
+        r.Add("@order_quantity", quantity);
+        string sql = $@"INSERT INTO orderdetails (refillorder_id, product_id, product_price,order_quantity) VALUES (@refillorder_id,@product_id,@product_price,@order_quantity); SELECT LAST_INSERT_ID() ";
+        int Id = connection.Query<int>(sql, r).First();
+        return Id;
+    }
+
+
     
     
 

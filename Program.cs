@@ -8,7 +8,7 @@
         Category category = menu.CategorySwitch();
 
         bool quit = false;
-        while (true)
+        while (!quit)
         {
             Console.WriteLine("\n********* Main Menu *********\n ");
             Console.Clear();
