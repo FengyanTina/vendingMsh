@@ -153,15 +153,15 @@ public class UserMenu
             switch (salesChoice)
             {
                 case SalesCategory.AddSales:
-                    userInput.PrintOrderList();
-                    break;
-
-                case SalesCategory.ShowSalesList:
                     
                     break;
 
-                case SalesCategory.ShowSalesByMachinId:
-                    
+                case SalesCategory.ShowAllProductSalesList:
+                    userInput.PrintAllProductSalesList();
+                    break;
+
+                case SalesCategory.ShowSalesPerformenceByMachinId:
+                    userInput.PrintSalePerformenceByMachineId();
                     break;
 
                 case SalesCategory.ShowSalesByProductId:
@@ -332,9 +332,9 @@ public enum OrderCategory
 
 public enum SalesCategory
 {
-    ShowSalesList = 1,
+    ShowAllProductSalesList = 1,
     AddSales,
-    ShowSalesByMachinId,
+    ShowSalesPerformenceByMachinId,
     ShowSalesByProductId,
     Quit,
 }

@@ -11,8 +11,8 @@ public class Sales
     
 
 
-    public override string ToString()
-    {
-        return sale_id + "\t\t" + product_id + "\t\t" + product_name + "\t" + machine_id +"\t\t" + sale_date.ToShortDateString() + "\t\t" + product_price + "\t\t" + sale_quantity +  "\t\t" + sale_totalMoney;
-    }
+    // public override string ToString()
+    // {
+    //     return sale_id + "\t\t" + product_id + "\t\t" + product_name + "\t" + machine_id +"\t\t" + sale_date.ToShortDateString() + "\t\t" + product_price + "\t\t" + sale_quantity +  "\t\t" + sale_totalMoney;
+    // }
 }

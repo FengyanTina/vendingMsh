@@ -136,4 +136,15 @@ public class DataManager
         employeeDB.DeleteEmployeeById(id);
     }
 
+    public List<Sales> GetAllProductSalesList()
+    {
+        return saleDB.AllProductSalesList();
+    }
+
+    public List<Sales> GetSalePerformenceByMachineId(int id)
+    {
+        return saleDB.SalePerformenceByMachineId(id);
+    }
+
+
 }

@@ -2,6 +2,51 @@ public class UserInput
 {
     DataManager dbManager = new();
 
+    public void PrintSalePerformenceByMachineId()
+   {
+     Console.WriteLine("\n------------------------------------------- Machine SaleList ---------------------------------------\n");
+     int id = TryGetInt("Eenter Mahcine ID:");
+        try
+        {
+            if (dbManager.GetSalePerformenceByMachineId(id).Count() != 0)
+            {
+                Console.WriteLine("Product ID " + "\t" + "Product Name" + "\t" + " Sale Price(Kr/unit)"+"\t"+ "Quantity"  +"\t"+ "Total Money(Kr)\n");
+                foreach (var item in dbManager.GetSalePerformenceByMachineId(id))
+                {
+                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.product_price + "\t\t" + item.sale_quantity + "\t\t" + item.sale_totalMoney);
+                }
+                Console.ReadLine();
+            }
+        }
+        catch (Exception e)
+        {
+
+            throw new ArgumentNullException("Products not found!", e);
+        }
+   }
+   
+   public void PrintAllProductSalesList()
+   {
+     Console.WriteLine("\n------------------------------------------- All Product SaleList ---------------------------------------\n");
+        try
+        {
+            if (dbManager.GetAllProductSalesList().Count() != 0)
+            {
+                Console.WriteLine("Product ID " + "\t" + "Product Name" + "\t" + " Sale Price(Kr/unit)"+"\t"+ "Quantity"  +"\t"+ "Total Money(Kr)\n");
+                foreach (var item in dbManager.GetAllProductSalesList())
+                {
+                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.product_price + "\t\t" + item.sale_quantity + "\t\t" + item.sale_totalMoney);
+                }
+                Console.ReadLine();
+            }
+        }
+        catch (Exception e)
+        {
+
+            throw new ArgumentNullException("Products not found!", e);
+        }
+   }
+   
     public void DeleteEmployeeByIdInput()
     {
         int id = TryGetInt("Enter employee ID to be deleted");
