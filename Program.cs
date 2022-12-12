@@ -35,6 +35,9 @@
                  case Category.Emoloyees:
                     menu.EmployeeChoice();
                     break;
+                case Category.StockChecking:
+                    Input.PrintStockByMachine();
+                    break;
 
                 case Category.Quit:
                     quit = Input.QuitMessage();

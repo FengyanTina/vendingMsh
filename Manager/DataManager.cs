@@ -5,6 +5,7 @@ public class DataManager
     RefillOrderDB orderDB = new ();
     ProductDB productDB = new ();
     SaleDB saleDB = new ();
+    StockDB stockDB = new();
 
     public List<RefillOrder> GetRefillOrders()
     {
@@ -149,6 +150,11 @@ public class DataManager
     public List<Sales> GetSalePerformenceByProductId(int id)
     {
         return saleDB.SalePerformenceByProductId(id);
+    }
+
+     public List<Sales> GetStockByMachineId(int id)
+    {
+        return stockDB.StockByMachineId(id);
     }
 
 

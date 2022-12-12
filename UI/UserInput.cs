@@ -2,6 +2,31 @@ public class UserInput
 {
     DataManager dbManager = new();
 
+    public void PrintStockByMachine()
+    {
+        Console.WriteLine("\n------------------------------------------- Stock List ---------------------------------------\n");
+        int mId = TryGetInt("Enter machine Id");
+        try
+        {
+            if (dbManager.GetStockByMachineId(mId).Count() != 0)
+            {
+                Console.WriteLine("Product ID\tProduct Name\t\tOrder Quantity\t\tSale Quantity\t\tStock");
+                foreach (var item in dbManager.GetStockByMachineId(mId))
+                {
+                    Console.WriteLine(item.product_id + "\t\t" +  item.product_name+ "\t\t" + item.Oqt + "\t\t\t" + item.Sqt +  "\t\t\t" + item.Qt);
+                }
+                Console.ReadLine();
+            }
+        }
+        catch (Exception e)
+        {
+
+            throw new ArgumentNullException("Products not found!", e);
+        }
+
+
+    }
+    
      public void PrintSalePerformanceByProductId()
    {
      Console.WriteLine("\n------------------------------------------- Product SaleList on Different Machine ---------------------------------------\n");

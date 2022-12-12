@@ -68,11 +68,11 @@ public class SaleDB
         Open();
         //Get all product including products not sold.
          var sales = connection.Query<Sales>($@"SELECT products.product_id,products.product_name,saledetails.product_price,sum(saledetails.sale_quantity) AS sale_quantity,(saledetails.product_price*sum(saledetails.sale_quantity)) AS sale_totalMoney,sales.machine_id
-FROM ((products 
-LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
-LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)
-WHERE saledetails.product_id = {id}
-GROUP BY products.product_id,sales.machine_id;").ToList();
+         FROM ((products 
+         LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
+         LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)
+         WHERE saledetails.product_id = {id}
+         GROUP BY products.product_id,sales.machine_id;").ToList();
         
         return sales;
     }

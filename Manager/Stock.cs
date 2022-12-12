@@ -13,4 +13,6 @@ public class Stock
     public int order_quantity { get; set; }
     public int checkedBy_employee { get; set; }
     public bool order_status { get; set; }
+     public int Qt{get;set;}
+     public int Sqt{get;set;}
 }
