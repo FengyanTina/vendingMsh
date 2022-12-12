@@ -2,27 +2,27 @@ public class UserInput
 {
     DataManager dbManager = new();
 
-     public void DeleteEmployeeByIdInput()
+    public void DeleteEmployeeByIdInput()
     {
         int id = TryGetInt("Enter employee ID to be deleted");
         dbManager.RemoveEmployeeById(id);
         Console.WriteLine("Employee has been removed!");
         Console.ReadLine();
     }
-     
-     public void UpdateEmployeeInput()
+
+    public void UpdateEmployeeInput()
     {
         int id = TryGetInt("Enter employee id to be updated:");
         string name = GetString("Enter employee name: ");
         string email = GetString("Enter employee email:");
         string phone = GetString("Enter employee phone:");
-        dbManager.UpdateEmployeeById(id,name, email, phone);
+        dbManager.UpdateEmployeeById(id, name, email, phone);
         Console.WriteLine("-------- Updated Employee ------");
         Console.WriteLine("Employee ID " + "\t\t" + "Employee Name" + "\t\t" + "Employee Phone" + "\t\t" + "Employee Email\n");
         Console.WriteLine(dbManager.SearchEmployeeById(id));
         Console.ReadLine();
     }
-    
+
     public void AddEmployeeInput()
     {
         string name = GetString("Enter employee name: ");
@@ -159,11 +159,11 @@ public class UserInput
     public void AddProductInput()
     {
         string insertName = GetString("Enter product name: ");
-        Console.WriteLine ("Order Price");
-        double orderP = Convert.ToDouble(Console.ReadLine ());
-        Console.WriteLine ("Sale Price");
-        double saleP = Convert.ToDouble(Console.ReadLine ());
-        int id = dbManager.AddProduct(insertName,orderP,saleP);
+        Console.WriteLine("Order Price");
+        double orderP = Convert.ToDouble(Console.ReadLine());
+        Console.WriteLine("Sale Price");
+        double saleP = Convert.ToDouble(Console.ReadLine());
+        int id = dbManager.AddProduct(insertName, orderP, saleP);
         Console.WriteLine("------- Added Product ID ------");
         Console.WriteLine(id);
         Console.WriteLine("--------------- Added Product --------------\n");
@@ -208,35 +208,35 @@ public class UserInput
 
     }
 
-     public void AddRefillOrderInput()
+    public void AddRefillOrderInput()
     {
         Console.WriteLine("Enter order Date:");
         DateTime orderDate = DateTime.Parse(Console.ReadLine());
         int employeeId = TryGetInt("Enter employee ID: ");
         int machineId = TryGetInt("Enter machine ID: ");
         Console.WriteLine("Order Status(True/False):");
-        bool status= Convert.ToBoolean(Console.ReadLine());
-        int refillOrderId = dbManager.AddRefillOrder(machineId, employeeId, orderDate,status);
+        bool status = Convert.ToBoolean(Console.ReadLine());
+        int refillOrderId = dbManager.AddRefillOrder(machineId, employeeId, orderDate, status);
         Console.WriteLine("----------- Added RefillOrder ID ------");
         Console.WriteLine(refillOrderId);
         Console.ReadLine();
         int pId = TryGetInt("Product Id");
         int quantity = TryGetInt("Enter quantity");
-        
+
         double oPrice = dbManager.GetProductById(pId).order_price;
-         int detailId = dbManager.AddRefillOrderDetails(refillOrderId,pId,oPrice,quantity);
-         Console.WriteLine("Order Details Id");
-         Console.WriteLine (detailId);
-      
+        int detailId = dbManager.AddRefillOrderDetails(refillOrderId, pId, oPrice, quantity);
+        Console.WriteLine("Order Details Id");
+        Console.WriteLine(detailId);
+
         // double sPrice = dbManager.GetProductById(pId).sale_price;
         // sPrice = Convert.ToDouble(Console.ReadLine ());
-        
+
         Console.WriteLine("------------------------------------ Added Refillorder Details -----------------------------------------");
-         try
+        try
         {
             if (dbManager.GetOrderListByOrdeId(refillOrderId).Count() != 0)
             {
-                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tChecked By EmployeeID\n");
+                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tIsDone\t\tChecked By EmployeeID\n");
                 foreach (var item in dbManager.GetOrderListByOrdeId(refillOrderId))
                 {
                     Console.WriteLine(item + " \n");
@@ -249,21 +249,24 @@ public class UserInput
         }
         Console.ReadLine();
     }
-    
+
     public void ReamoveOrderByIdInput()
     {
-         int orderId = TryGetInt("Enter searching order ID: ");
-         dbManager.RemoveOrderById(orderId);
+        int orderId = TryGetInt("Enter  order ID: ");
+        dbManager.RemoveOrderById(orderId);
+        Console.WriteLine("Order has been deleted!");
+        Console.ReadLine();
     }
+
     public void SearchOrderByOrderIdInput()
     {
         int orderId = TryGetInt("Enter searching order ID: ");
 
-         try
+        try
         {
             if (dbManager.GetOrderListByOrdeId(orderId).Count() != 0)
             {
-                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tChecked By EmployeeID By EmployeeID\n");
+                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tIsDone\t\tChecked By EmployeeID By EmployeeID\n");
                 foreach (var item in dbManager.GetOrderListByOrdeId(orderId))
                 {
                     Console.WriteLine(item + " \n");
@@ -289,7 +292,7 @@ public class UserInput
         {
             if (dbManager.GetOrderListByOrdeId(orderId).Count() != 0)
             {
-                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tChecked By EmployeeID\n");
+                Console.WriteLine("\nRefillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee \tIsDone\t\tChecked By EmployeeID\n");
                 foreach (var item in dbManager.GetOrderListByOrdeId(orderId))
                 {
                     Console.WriteLine(item + " \n");
@@ -301,22 +304,57 @@ public class UserInput
             throw new ArgumentNullException("Order list not found", e);
         }
         Console.ReadLine();
-        
+
     }
 
     public void UpdateOrderStatusByIdInput()
     {
-        int orderId = TryGetInt("Enter updateing order ID: ");
-        bool status = Convert.ToBoolean(TryGetInt("Is the order reillment completed(True/False): "));
-        int employeeId = TryGetInt("Enter checked by employee ID : ");
 
-        dbManager.UpdateOrderStatustById(orderId, employeeId, status);
+        int orderId = TryGetInt("Enter updateing order ID: ");
+        bool status;
+        Console.WriteLine("Select Status number:\n[1] Order is completed.\n[0] Order is not completed");
+        int input = TryGetInt("Is the order completed(1/2): ");
+         int employeeId = TryGetInt("Enter checked by employee ID : ");
+        if (input == 1)
+        {
+            status = true;
+            dbManager.UpdateOrderStatustById(orderId, employeeId, status);
+        }
+        else if (input == 2)
+        {
+            status = false;
+            dbManager.UpdateOrderStatustById(orderId, employeeId, status);
+        }
+        else 
+        {
+            Console.WriteLine ("Plese input 0 or 1!");
+        }
+         
+        // Console.WriteLine("Is order done(True/False): ");
+        // string input = Console.ReadLine().ToLower();
+        //bool status;
+        // bool status = Convert.ToBoolean(input);
+        //    try
+        //    {
+        //     Console.WriteLine("Is order done(True/False): ");
+        //     string input = Console.ReadLine().ToLower(); 
+        //     status = Convert.ToBoolean(input);
+
+        //    }
+        //    catch (Exception e)
+        //    {
+
+        //     throw new ArgumentException("Input true or false",e);
+        //    }
+        //int employeeId = TryGetInt("Enter checked by employee ID : ");
+
+        //dbManager.UpdateOrderStatustById(orderId, employeeId, status);
         Console.WriteLine("Order has been updated, new order details is: ");
         try
         {
             if (dbManager.GetOrderListByOrdeId(orderId).Count() != 0)
             {
-                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tChecked By EmployeeID\n");
+                Console.WriteLine("\nRefillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee \tIsDone\t\tChecked By EmployeeID\n");
                 foreach (var item in dbManager.GetOrderListByOrdeId(orderId))
                 {
                     Console.WriteLine(item + " \n");
@@ -328,7 +366,7 @@ public class UserInput
             throw new ArgumentNullException("Order list not found", e);
         }
         Console.ReadLine();
-        
+
     }
 
     public void UpdateOrderProductByIdInput()
@@ -340,9 +378,9 @@ public class UserInput
 
         dbManager.UpdateOrderProductById(orderId, productId, productQuantity, newProductId);
         Console.WriteLine("Order has been updated, new order details is: ");
-        Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tChecked By EmployeeID\n");
+        Console.WriteLine("\nRefillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee \tIsDone\t\tChecked By EmployeeID\n");
         Console.WriteLine(dbManager.ShowUppdateOrderDetailsByOrderProductId(orderId, newProductId));
-        Console.ReadLine ();
+        Console.ReadLine();
     }
 
     public void PrintOrderListByMachineId()
@@ -354,7 +392,7 @@ public class UserInput
         {
             if (dbManager.GetRefillOrdersByMachineId(machineId).Count() != 0)
             {
-                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tChecked By EmployeeID\n");
+                Console.WriteLine("\nRefillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee \tIsDone\t\tChecked By EmployeeID\n");
                 foreach (var item in dbManager.GetRefillOrdersByMachineId(machineId))
                 {
                     Console.WriteLine(item + " \n");
@@ -377,7 +415,7 @@ public class UserInput
         {
             if (dbManager.GetOrderListByOrdeId(orderId).Count() != 0)
             {
-                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tChecked By EmployeeID\n");
+                Console.WriteLine("\nRefillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee \tIsDone\t\tChecked By EmployeeID\n");
                 foreach (var item in dbManager.GetOrderListByOrdeId(orderId))
                 {
                     Console.WriteLine(item + " \n");
@@ -398,7 +436,7 @@ public class UserInput
         {
             if (dbManager.GetRefillOrders().Count() != 0)
             {
-                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmployee\t\tChecked By EmployeeID\n");
+                Console.WriteLine("\nRefillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmployee \tIsDone\t\tChecked By EmployeeID\n");
                 foreach (var item in dbManager.GetRefillOrders())
                 {
                     Console.WriteLine(item + " \n");

@@ -19,7 +19,7 @@ public class UserMenu
                     break;
 
                 case OrderCategory.DeleteOrderById:
-                    
+                    userInput.ReamoveOrderByIdInput();
                     break;
 
                 case OrderCategory.UppdateOrderProductById:
