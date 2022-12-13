@@ -54,7 +54,7 @@ SET r.employee_id = 1,
         WHERE r.refillOrder_id =3 ;
 
 8. Show all the products oder quantity, price, vending machine and total order money group by product_id, machine_id. 
-SELECT products.product_id,products.product_name, machines.machine_id,orderdetails.product_price,sum(order_quantity), sum(product_price*order_quantity),refillorders.employee_id 
+SELECT refillorders.refillorder_id,products.product_id,products.product_name, machines.machine_id,orderdetails.product_price,sum(order_quantity), sum(product_price*order_quantity),refillorders.employee_id 
 FROM ((((orderdetails 
 INNER JOIN products ON products.product_id = orderdetails.product_id) 
 INNER JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)

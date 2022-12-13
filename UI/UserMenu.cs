@@ -18,14 +18,14 @@ public class UserMenu
                     userInput.PrintOrderList();
                     break;
 
-                case OrderCategory.DeleteOrderById:
+                case OrderCategory.DeleteOrderByOrderId:
                     userInput.ReamoveOrderByIdInput();
                     break;
 
-                case OrderCategory.UppdateOrderProductById:
+                case OrderCategory.UppdateOrderProductByOrderId:
                     userInput.UpdateOrderProductByIdInput();
                     break;
-                case OrderCategory.UpdateOrderMachineEmployeeById:
+                case OrderCategory.UpdateOrderMachineEmployeeByOrderId:
                     userInput.UpdateOrderMachineEmployeeByIdInput();
                     break;
 
@@ -33,12 +33,15 @@ public class UserMenu
                      userInput.PrintOrderListByMachineId();
                     break;
 
-                case OrderCategory.SearchOrderListByOrderId:
+                case OrderCategory.SearchOrderByOrderId:
                      userInput.PrintOrderListByOrderId();
+                    break;
+                case OrderCategory.SearchOrderByProductId:
+                     userInput.PrintOrderListByProductId();
                     break;
 
                 case OrderCategory.AddOrder:
-                   userInput.AddRefillOrderInput();
+                   userInput.AddOrderInput();
                     break;
                 case OrderCategory.UppdateOrderStatus:
                    userInput.UpdateOrderStatusByIdInput();
@@ -323,13 +326,14 @@ public enum MachineCategory
 public enum OrderCategory
 {
     ShowOrderList = 1,
-    AddOrder,
-    UppdateOrderProductById,
-    UpdateOrderMachineEmployeeById,
-    DeleteOrderById,
     SearchOrderByMachinId,
-    SearchOrderListByOrderId,
+    SearchOrderByOrderId,
+    SearchOrderByProductId,
+    UppdateOrderProductByOrderId,
+    UpdateOrderMachineEmployeeByOrderId,
     UppdateOrderStatus,
+    AddOrder,
+    DeleteOrderByOrderId,
     Quit,
 }
 

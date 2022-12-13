@@ -7,22 +7,27 @@ public class DataManager
     SaleDB saleDB = new ();
     StockDB stockDB = new();
 
-    public List<RefillOrder> GetRefillOrders()
+    public List<RefillOrder> GetOrders()
     {
        return orderDB.RefillOrderList();
     }
 
-    public List<RefillOrder> GetRefillOrdersByMachineId(int id)
+    public List<RefillOrder> GetOrdersByMachineId(int id)
     {
        return orderDB.SearchOrderByMachineId(id);
     }
 
-    public int AddRefillOrder(int machineID, int employeeID, DateTime date,bool status,int id)
+    public List<RefillOrder> GetOrdersByProductId(int id)
+    {
+       return orderDB.SearchOrderByProductId(id);
+    }
+
+    public int AddOrder(int machineID, int employeeID, DateTime date,bool status,int id)
     {
         return orderDB.InsertRefillOrder(machineID,employeeID,date,status,id);
     }
 
-     public int AddRefillOrderDetails(int refillOrderID, int productID, double productPrice,int quantity)
+     public int AddOrderDetails(int refillOrderID, int productID, double productPrice,int quantity)
     {
         return orderDB.InsertOrderDetails(refillOrderID,productID,productPrice,quantity);
     }
