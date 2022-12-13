@@ -153,7 +153,7 @@ public class UserMenu
             switch (salesChoice)
             {
                 case SalesCategory.AddSales:
-                    
+                    userInput.AddSalesInput();
                     break;
 
                 case SalesCategory.ShowAllProductSalesList:

@@ -5,35 +5,29 @@ public class UserInput
 
     public void AddSalesInput()
     {
-        Console.WriteLine("Enter order Date:");
-        DateTime orderDate = DateTime.Parse(Console.ReadLine());
-        int employeeId = TryGetInt("Enter employee ID: ");
+        DateTime saleDate = DateTime.Now;
         int machineId = TryGetInt("Enter machine ID: ");
-        bool status = false;
-        int refillOrderId = dbManager.AddRefillOrder(machineId, employeeId, orderDate, status, employeeId);
-        Console.WriteLine("----------- Added RefillOrder ID ------");
-        Console.WriteLine(refillOrderId);
+        int saleId = dbManager.AddSales(machineId,saleDate);
+        Console.WriteLine("----------- Added Sales ID ------");
+        Console.WriteLine(saleId);
         Console.ReadLine();
         int pId = TryGetInt("Product Id");
         int quantity = TryGetInt("Enter quantity");
 
-        double oPrice = dbManager.GetProductById(pId).order_price;
-        int detailId = dbManager.AddRefillOrderDetails(refillOrderId, pId, oPrice, quantity);
-        Console.WriteLine("Order Details Id");
+        double sPrice = dbManager.GetProductById(pId).sale_price;
+        int detailId = dbManager.AddSaleDetails(saleId, pId, sPrice, quantity);
+        Console.WriteLine("Sales Details Id");
         Console.WriteLine(detailId);
 
-        // double sPrice = dbManager.GetProductById(pId).sale_price;
-        // sPrice = Convert.ToDouble(Console.ReadLine ());
-
-        Console.WriteLine("------------------------------------ Added Refillorder Details -----------------------------------------");
+        Console.WriteLine("------------------------------------ Added Sales Details -----------------------------------------");
         try
         {
-            if (dbManager.GetOrderListByOrdeId(refillOrderId).Count() != 0)
+            if (dbManager.GetSalesBySaleId(saleId).Count() != 0)
             {
-                Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tIsDone\t\tOrder By EmployeeID\n");
-                foreach (var item in dbManager.GetOrderListByOrdeId(refillOrderId))
+                Console.WriteLine("Product ID\tProduct Name\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tOrder Date\n");
+                foreach (var item in dbManager.GetSalesBySaleId(saleId))
                 {
-                    Console.WriteLine(item + " \n");
+                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.product_price + "\t\t" + item.sale_quantity + "\t\t" + item.sale_totalMoney+ "\t\t" + item.sale_date );
                 }
             }
         }
@@ -44,9 +38,8 @@ public class UserInput
         Console.ReadLine();
     }
 
-    public bool PrintStockByMachine()
+    public void PrintStockByMachine()
     {
-
         Console.WriteLine("\n------------------------------------------- Stock List ---------------------------------------\n");
         int mId = TryGetInt("Enter machine Id");
         try
@@ -61,7 +54,7 @@ public class UserInput
 
                 Console.WriteLine("Do you want to creat en auto order(y/yes)? Otherwise press anykey to exist");
                 string? answer = Console.ReadLine().ToLower();
-                bool q;
+                
                 if (answer == "y" || answer == "yes")
                 {
                     DateTime orderDate = DateTime.Now;
@@ -95,21 +88,18 @@ public class UserInput
                             }
                             Console.WriteLine("Press Enter To check the stock!");
                         }
-
                     }
                     catch (Exception e)
                     {
                         throw new ArgumentNullException("Order list not found", e);
                     }
                     Console.ReadLine();
-
                 }
                 else
                 {
-                   return !QuitMessage();
+                   Environment.Exit(0);
+                   
                 }
-
-
 
             }
         }
@@ -117,62 +107,8 @@ public class UserInput
         {
 
             throw new ArgumentNullException("Products not found!", e);
-        }
-
-        // Console.WriteLine("Do you want to creat en auto order(y/yes)? Otherwise press anykey to exist");
-        // string? answer = Console.ReadLine().ToLower();
-        // bool q;
-        // if (answer == "y" || answer == "yes")
-        // {
-        //     DateTime orderDate = DateTime.Now;
-        //     int employeeId = TryGetInt("Enter employee ID: ");
-        //     int machineId = mId;
-        //     bool status = false;
-        //     int refillOrderId = dbManager.AddRefillOrder(machineId, employeeId, orderDate, status, employeeId);
-        //     Console.WriteLine("----------- Added RefillOrder ID ------");
-        //     Console.WriteLine(refillOrderId);
-        //     //Console.ReadLine();
-        //     foreach (var item in dbManager.GetStockByMachineId(mId))
-        //     {
-        //         double oPrice = dbManager.GetProductById(item.product_id).order_price;
-        //         int quantity = 20 - item.Qt;
-        //         if (item.Qt < 20)
-        //         {
-        //             int detailId = dbManager.AddRefillOrderDetails(refillOrderId, item.product_id, oPrice, quantity);
-
-        //         }
-        //     }
-
-        //     Console.WriteLine("-------------------------------------------- Added Refillorder Details ------------------------------------------------------------\n");
-        //     try
-        //     {
-        //         if (dbManager.GetOrderListByOrdeId(refillOrderId).Count() != 0)
-        //         {
-        //             Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tIsDone\t\tOrder By EmployeeID\n");
-        //             foreach (var item in dbManager.GetOrderListByOrdeId(refillOrderId))
-        //             {
-        //                 Console.WriteLine(item + " \n");
-        //             }
-        //             Console.WriteLine("Press Enter To check the stock!");
-        //         }
-
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         throw new ArgumentNullException("Order list not found", e);
-        //     }
-        //     Console.ReadLine();
-        return !QuitMessage();
-
-        }
-
-
-
-
-        // UserMenu um = new();
-        // um.CategorySwitch();
-
-    
+        } 
+    }
 
     public void PrintSalePerformanceByProductId()
     {

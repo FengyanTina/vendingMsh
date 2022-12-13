@@ -77,29 +77,41 @@ public class SaleDB
         return sales;
     }
 
-    public int InsertRefillOrder(int machineID, int employeeID, DateTime date,bool status,int id)//tested
+    public List<Sales> SaleListBySalesId(int id)
+    {
+        Open();
+        //Get all product including products not sold.
+         var sales = connection.Query<Sales>($@"SELECT p.product_id,p.product_name,sd.product_price,sum(sd.sale_quantity) AS sale_quantity,(sd.product_price*sum(sd.sale_quantity)) AS sale_totalMoney,s.machine_id,s.sale_date
+         FROM ((products p
+         INNER JOIN saledetails sd ON p.product_id = sd.product_id)
+         INNER JOIN sales s ON s.sale_id = sd.sale_id)
+         WHERE sd.sale_id = {id}
+         GROUP BY sd.product_id;").ToList();
+        
+        return sales;
+    }
+
+    public int InsertSales(int machineID, DateTime date)
     {
         Open();
         var r = new DynamicParameters();
         r.Add("@machine_id", machineID);
-        r.Add("@employee_id", employeeID);
-        r.Add("@order_date", date);
-         r.Add("@order_status", status);
-         r.Add("@checkedBy_employee", id);
-        string sql = $@"INSERT INTO refillorders (machine_id, employee_id, order_date,order_status,checkedBy_employee) VALUES (@machine_id,@employee_id,@order_date,@order_status,@checkedBy_employee); SELECT LAST_INSERT_ID() ";
+        r.Add("@sale_date", date);
+        
+        string sql = $@"INSERT INTO Sales (machine_id,  sale_date) VALUES (@machine_id,@sale_date); SELECT LAST_INSERT_ID() ";
         int Id = connection.Query<int>(sql, r).First();
         return Id;
     }
 
-    public int InsertOrderDetails (int refillOrderID, int productID, double productPrice,int quantity)//tested
+    public int InsertSaleDetails (int salesID, int productID, double productPrice,int quantity)//tested
     {
         Open();
         var r = new DynamicParameters();
-        r.Add("@refillorder_id", refillOrderID);
+        r.Add("@sale_id", salesID);
         r.Add("@product_id", productID);
         r.Add("@product_price", productPrice);
-        r.Add("@order_quantity", quantity);
-        string sql = $@"INSERT INTO orderdetails (refillorder_id, product_id, product_price,order_quantity) VALUES (@refillorder_id,@product_id,@product_price,@order_quantity); SELECT LAST_INSERT_ID() ";
+        r.Add("@sale_quantity", quantity);
+        string sql = $@"INSERT INTO saledetails (sale_id, product_id, product_price,sale_quantity) VALUES (@sale_id,@product_id,@product_price,@sale_quantity); SELECT LAST_INSERT_ID() ";
         int Id = connection.Query<int>(sql, r).First();
         return Id;
     }

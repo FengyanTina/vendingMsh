@@ -157,5 +157,20 @@ public class DataManager
         return stockDB.StockByMachineId(id);
     }
 
+     public List<Sales> GetSalesBySaleId(int id)
+    {
+        return saleDB.SaleListBySalesId(id);
+    }
+
+    public int AddSales(int machineID, DateTime date)
+    {
+        return saleDB.InsertSales(machineID,date);
+    }
+
+     public int AddSaleDetails(int saleID, int productID, double productPrice,int quantity)
+    {
+        return saleDB.InsertSaleDetails(saleID,productID,productPrice,quantity);
+    }
+
 
 }

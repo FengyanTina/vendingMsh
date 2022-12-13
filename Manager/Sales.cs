@@ -4,6 +4,7 @@ public class Sales
     public int machine_id {get;set;}
     public DateTime sale_date{get;set;}
     public int product_id{get;set;}
+    public double sale_price{get;set;}
     public double product_price{get;set;}
     public int sale_quantity{get;set;}
     public double sale_totalMoney{get;set;}
