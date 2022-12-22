@@ -23,6 +23,8 @@ WHERE refillorders.machine_id = 1
 GROUP BY product_id;
 
 
+
+
 2. Show orderdetails with machine id, product name, order product price, order quantity, total order money and order date[Done]
 SELECT refillorders.refillorder_id,orderdetails.product_id,products.product_name,refillorders.machine_id,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS order_quantity, (product_price*order_quantity)AS order_totalPay,refillorders.employee_id
 FROM (((products 
@@ -62,6 +64,13 @@ INNER JOIN machines ON machines.machine_id = refillorders.machine_id)
 INNER JOIN employee ON employee.employee_id = refillorders.employee_id)
 GROUP BY products.product_id,machines.machine_id;
 
+SELECT r.refillorder_id,o.product_id,p.product_name,r.machine_id,r.order_date,o.product_price,sum(o.order_quantity) AS order_quantity, (product_price*sum(o.order_quantity))AS order_totalPay,r.employee_id,r.order_status,r.checkedBy_employee
+        FROM (((products p
+        LEFT JOIN orderdetails o ON p.product_id = o.product_id)
+        LEFT JOIN refillorders r ON r.refillOrder_id = o.refillOrder_id)
+        LEFT JOIN employee e ON e.employee_id = r.employee_id)
+        WHERE r.machine_id ={number}
+        GROUP BY r.refillorder_id, o.product_id;
 
 
 

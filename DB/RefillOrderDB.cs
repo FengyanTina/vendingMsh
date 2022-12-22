@@ -114,7 +114,7 @@ public class RefillOrderDB
         LEFT JOIN orderdetails o ON p.product_id = o.product_id)
         LEFT JOIN refillorders r ON r.refillOrder_id = o.refillOrder_id)
         INNER JOIN employee e ON e.employee_id = r.employee_id)
-        GROUP BY p.product_id,r.machine_id;").ToList();
+        GROUP BY  r.refillorder_id,o.product_id,r.machine_id,r.order_status;").ToList();
         return orders;
     }
 
@@ -127,7 +127,7 @@ public class RefillOrderDB
         LEFT JOIN refillorders r ON r.refillOrder_id = o.refillOrder_id)
         LEFT JOIN employee e ON e.employee_id = r.employee_id)
         WHERE r.machine_id ={number}
-        GROUP BY r.refillorder_id, o.product_id;").ToList();
+        GROUP BY o.product_id,r.order_status;").ToList();
         return OrderByMachineIdList;
     }
 

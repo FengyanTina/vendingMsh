@@ -397,10 +397,9 @@ public class UserInput
         int employeeId = TryGetInt("Enter employee ID: ");
         int machineId = TryGetInt("Enter machine ID: ");
         bool status = false;
-        int refillOrderId = dbManager.AddOrder(machineId, employeeId, orderDate, status, employeeId);
+        int refillOrderId = dbManager.AddOrder(machineId, employeeId, orderDate, status, 0);
         Console.WriteLine("----------- Added RefillOrder ID ------");
         Console.WriteLine(refillOrderId);
-        Console.ReadLine();
         int pId = TryGetInt("Product Id");
         int quantity = TryGetInt("Enter quantity");
 
@@ -494,14 +493,14 @@ public class UserInput
         int orderId = TryGetInt("Enter updateing order ID: ");
         bool status;
         Console.WriteLine("Select Status number:\n[1] Order is completed.\n[0] Order is not completed");
-        int input = TryGetInt("Is the order completed(1/2): ");
+        int input = TryGetInt("Is the order completed(1/0): ");
         int employeeId = TryGetInt("Enter checked by employee ID : ");
         if (input == 1)
         {
             status = true;
             dbManager.UpdateOrderStatustById(orderId, employeeId, status);
         }
-        else if (input == 2)
+        else if (input == 0)
         {
             status = false;
             dbManager.UpdateOrderStatustById(orderId, employeeId, status);
@@ -573,10 +572,10 @@ public class UserInput
         {
             if (dbManager.GetOrdersByMachineId(machineId).Count() != 0)
             {
-                Console.WriteLine("\nRefillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee \tIsDone\t\tChecked By EmployeeID\n");
+                Console.WriteLine("\nProduct ID\tProduct Name\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee \tIsDone\t\tChcked By EmployeeID\n");
                 foreach (var item in dbManager.GetOrdersByMachineId(machineId))
                 {
-                    Console.WriteLine(item + " \n");
+                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.product_price + "\t\t" + item.order_quantity + "\t\t" + item.order_totalPay + "\t\t" + item.employee_id + "\t\t" + item.order_status + "\t\t\t" + item.checkedBy_employee + " \n");
                 }
             }
         }
