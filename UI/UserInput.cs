@@ -38,7 +38,7 @@ public class UserInput
         Console.ReadLine();
     }
 
-    public void PrintStockByMachine()
+    public bool PrintStockByMachine()
     {
        
         Console.WriteLine("\n------------------------------------------- Stock List ---------------------------------------\n");
@@ -100,9 +100,8 @@ public class UserInput
                 }
                 else
                 {
-                   //Environment.Exit(0);
-                   UserMenu u = new();
-                    u.CategorySwitch();   
+                  Environment.Exit(0);
+                //     u.CategorySwitch();   
                 }
 
             }
@@ -112,7 +111,7 @@ public class UserInput
 
             throw new ArgumentNullException("Products not found!", e);
         } 
-        
+        return false;
     }
 
     public void PrintSalePerformanceByProductId()

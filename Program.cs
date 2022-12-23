@@ -38,6 +38,7 @@
                     menu.EmployeeChoice();
                     break;
                 case Category.StockChecking:
+                
                     menu.StockMenu();
                    //Input.PrintStockByMachine();
                   

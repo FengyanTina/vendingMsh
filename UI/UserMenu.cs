@@ -2,10 +2,16 @@ public class UserMenu
 {
     DataManager dbManager = new();
     UserInput userInput = new();
-
+    
     public void StockMenu()
     {
+       
+        while (true)
+        {
         userInput.PrintStockByMachine();
+            
+        }
+
     }
 
     public void OrderChoice() 
