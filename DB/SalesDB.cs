@@ -29,11 +29,17 @@ public class SaleDB
     public List<Sales> AllProductTotalSalesList()
     {
         Open();
-        var sales = connection.Query<Sales>($@"SELECT products.product_id,products.product_name,saledetails.product_price,sum(saledetails.sale_quantity) AS sale_quantity,(saledetails.product_price*sum(saledetails.sale_quantity)) AS sale_totalMoney
+
+         var sales = connection.Query<Sales>($@"SELECT products.product_id,products.product_name,products.sale_price,COALESCE(sum(saledetails.sale_quantity),0) AS sale_quantity,COALESCE(saledetails.product_price*sum(saledetails.sale_quantity),0) AS sale_totalMoney
         FROM ((products 
         LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
         LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)
         GROUP BY products.product_id;").ToList();
+        // var sales = connection.Query<Sales>($@"SELECT products.product_id,products.product_name,saledetails.product_price,sum(saledetails.sale_quantity) AS sale_quantity,(saledetails.product_price*sum(saledetails.sale_quantity)) AS sale_totalMoney
+        // FROM ((products 
+        // LEFT JOIN saledetails ON products.product_id = saledetails.product_id)
+        // LEFT JOIN sales ON sales.sale_id = saledetails.sale_id)
+        // GROUP BY products.product_id;").ToList();
         return sales;
     }
 

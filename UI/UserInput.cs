@@ -40,16 +40,19 @@ public class UserInput
 
     public void PrintStockByMachine()
     {
+       
         Console.WriteLine("\n------------------------------------------- Stock List ---------------------------------------\n");
         int mId = TryGetInt("Enter machine Id");
         try
         {
             if (dbManager.GetStockByMachineId(mId).Count() != 0)
             {
-                Console.WriteLine("Product ID\tProduct Name\t\tOrder Quantity\t\tSale Quantity\t\tStock");
+                Console.WriteLine("Product ID\tProduct Name\t\tStock");
                 foreach (var item in dbManager.GetStockByMachineId(mId))
                 {
-                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.Oqt + "\t\t\t" + item.Sqt + "\t\t\t" + item.Qt);
+                    
+                    //Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.Oqt + "\t\t\t" + item.Sqt + "\t\t\t" + item.Qt);
+                    Console.WriteLine(item.product_id + "\t\t" + item.product_name +  "\t\t" + item.Qt);
                 }
 
                 Console.WriteLine("Do you want to creat en auto order(y/yes)? Otherwise press anykey to exist");
@@ -61,7 +64,7 @@ public class UserInput
                     int employeeId = TryGetInt("Enter employee ID: ");
                     int machineId = mId;
                     bool status = false;
-                    int refillOrderId = dbManager.AddOrder(machineId, employeeId, orderDate, status, employeeId);
+                    int refillOrderId = dbManager.AddOrder(machineId, employeeId, orderDate, status, 0);
                     Console.WriteLine("----------- Added RefillOrder ID ------");
                     Console.WriteLine(refillOrderId);
                     //Console.ReadLine();
@@ -81,7 +84,7 @@ public class UserInput
                     {
                         if (dbManager.GetOrderListByOrdeId(refillOrderId).Count() != 0)
                         {
-                            Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tIsDone\t\tOrder By EmployeeID\n");
+                            Console.WriteLine("Refillorder ID\t Product ID\tProduct Name\tMachine ID\tOrder Date\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tEmplyee\t\tIsDone\t\tChecked By EmployeeID\n");
                             foreach (var item in dbManager.GetOrderListByOrdeId(refillOrderId))
                             {
                                 Console.WriteLine(item + " \n");
@@ -97,8 +100,7 @@ public class UserInput
                 }
                 else
                 {
-                   Environment.Exit(0);
-                   
+                   Environment.Exit(0);    
                 }
 
             }
@@ -108,6 +110,7 @@ public class UserInput
 
             throw new ArgumentNullException("Products not found!", e);
         } 
+        
     }
 
     public void PrintSalePerformanceByProductId()
@@ -172,7 +175,7 @@ public class UserInput
                 Console.WriteLine("Product ID " + "\t" + "Product Name" + "\t" + " Sale Price(Kr/unit)" + "\t" + "Quantity" + "\t" + "Total Money(Kr)\n");
                 foreach (var item in dbManager.GetAllProductTotalSalesPerformence())
                 {
-                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.product_price + "\t\t" + item.sale_quantity + "\t\t" + item.sale_totalMoney);
+                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.sale_price + "\t\t" + item.sale_quantity + "\t\t" + item.sale_totalMoney);
                 }
                 Console.ReadLine();
             }
