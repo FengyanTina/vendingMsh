@@ -100,7 +100,9 @@ public class UserInput
                 }
                 else
                 {
-                   Environment.Exit(0);    
+                   //Environment.Exit(0);
+                   UserMenu u = new();
+                    u.CategorySwitch();   
                 }
 
             }
