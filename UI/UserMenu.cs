@@ -25,7 +25,7 @@ public class UserMenu
 
             switch (OrderChoice)
             {
-                case OrderCategory.ShowOrderList:
+                case OrderCategory.ShowAllOrderList:
                     userInput.PrintOrderList();
                     break;
 
@@ -336,7 +336,7 @@ public enum MachineCategory
 
 public enum OrderCategory
 {
-    ShowOrderList = 1,
+    ShowAllOrderList = 1,
     SearchOrderByMachinId,
     SearchOrderByOrderId,
     SearchOrderByProductId,
@@ -350,8 +350,8 @@ public enum OrderCategory
 
 public enum SalesCategory
 {
-    ShowAllProductSalesList = 1,
-    AddSales,
+    AddSales = 1,
+    ShowAllProductSalesList,
     ShowSalesPerformenceByMachinId,
     ShowSalesPerformanceByProductId,
     Stock,
