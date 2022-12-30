@@ -360,15 +360,37 @@ public class UserInput
 
     }
 
+    // public void PrintProductByName()
+    // {
+    //     string searchName = GetString("Enter product name: ");
+    //     if (dbManager.GetProductByName(searchName) != null)
+    //     {
+    //         Console.WriteLine("Product ID\tProduct Name");
+    //         Console.WriteLine(dbManager.GetProductByName(searchName));
+    //         Console.ReadLine();
+    //     }
+    // }
+
     public void PrintProduct()
     {
-        string searchName = GetString("Enter product name: ");
-        if (dbManager.GetProductByName(searchName) != null)
+        int id = TryGetInt("Enter product Id: ");
+        try
         {
-            Console.WriteLine("Product ID\tProduct Name");
-            Console.WriteLine(dbManager.GetProductByName(searchName));
+        if (dbManager.GetProductById(id) != null)
+        {
+            Console.WriteLine("Product ID\t Product Name\t\tOrder Price(Kr)\t\tSale Price(Kr)\n");
+            
+            Console.WriteLine(dbManager.GetProductById(id));
             Console.ReadLine();
         }
+            
+        }
+        catch (Exception e)
+        {
+            
+            throw new Exception("Product does not exist!",e);
+        }
+        
     }
 
     public void PrintProductList()
@@ -378,7 +400,7 @@ public class UserInput
         {
             if (dbManager.GetProductList().Count() != 0)
             {
-                Console.WriteLine("Product ID\t Product Name\t Order Price\tSale Price");
+                Console.WriteLine("Product ID\t Product Name\t\tOrder Price(Kr)\t\tSale Price(Kr)");
                 foreach (var item in dbManager.GetProductList())
                 {
                     Console.WriteLine(item);

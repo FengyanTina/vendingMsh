@@ -69,7 +69,7 @@ public class DataManager
 
     public Product GetProductByName(string name)
     {
-        return productDB.SearchProductByName(name);
+        return productDB.SearchProductById(name);
     }
 
      public Product GetProductById(int id)

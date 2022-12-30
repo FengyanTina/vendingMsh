@@ -35,7 +35,7 @@ public class ProductDB
         return products;
     }
 
-    public Product SearchProductByName(string name)//tested
+    public Product SearchProductById(string name)//tested
     {
         Open();
         var product = connection.QuerySingle<Product>(@$"SELECT * FROM `products` WHERE product_name = '{name}';");

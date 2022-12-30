@@ -93,11 +93,11 @@ public class UserMenu
                     userInput.PrintProductList();
                     break;
 
-                case ProductCategory.SearchProductByName:
+                case ProductCategory.SearchProductById:
                    userInput.PrintProduct();
                     break;
 
-                case ProductCategory.UppdateProduct:
+                case ProductCategory.UppdateProductById:
                    userInput.UpdateProductByIdInput();
                     break;
 
@@ -318,9 +318,9 @@ public enum ProductCategory
 {
     ShowProductList = 1,
     AddProduct,
-    UppdateProduct,
+    UppdateProductById,
     DeleteProductById,
-    SearchProductByName,
+    SearchProductById,
     Quit,
 }
 

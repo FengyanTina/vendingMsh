@@ -6,6 +6,6 @@ public class Product
     public double sale_price { get; set; }
     public override string ToString()
     {
-        return @$"  " + product_id + "\t\t " + product_name + "\t " + order_price + "\t " + sale_price ;
+        return product_id + "\t\t " + product_name + "\t\t " + order_price + "\t\t\t " + sale_price ;
     }
 }
