@@ -134,13 +134,13 @@ public class RefillOrderDB
     public List<RefillOrder> SearchOrderByProductId(int number)//tested
     {
         Open();
-        var OrderByProductIdList = connection.Query<RefillOrder>($@"SELECT refillorders.refillorder_id,orderdetails.product_id,products.product_name,refillorders.machine_id,refillorders.order_date,orderdetails.product_price,sum(orderdetails.order_quantity) AS order_quantity, (product_price*sum(orderdetails.order_quantity))AS order_totalPay,refillorders.employee_id
-        FROM (((products 
-        LEFT JOIN orderdetails ON products.product_id = orderdetails.product_id)
-        LEFT JOIN refillorders ON refillorders.refillOrder_id = orderdetails.refillOrder_id)
-        INNER JOIN employee ON employee.employee_id = refillorders.employee_id)
-        WHERE orderdetails.product_id = {number}
-        GROUP BY refillorders.refillOrder_id, refillorders.machine_id;").ToList();
+        var OrderByProductIdList = connection.Query<RefillOrder>($@"SELECT r.refillorder_id,o.product_id,p.product_name,r.machine_id,r.order_date,o.product_price,sum(o.order_quantity) AS order_quantity, (product_price*sum(o.order_quantity))AS order_totalPay,r.employee_id,r.order_status,r.checkedBy_employee
+        FROM (((products p
+        LEFT JOIN orderdetails o ON p.product_id = o.product_id)
+        LEFT JOIN refillorders r ON r.refillOrder_id = o.refillOrder_id)
+        INNER JOIN employee e ON e.employee_id = r.employee_id)
+        WHERE o.product_id = {number}
+        GROUP BY r.refillOrder_id, r.machine_id;").ToList();
         return OrderByProductIdList;
     }
 
