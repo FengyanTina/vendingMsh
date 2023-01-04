@@ -15,6 +15,6 @@ public class RefillOrder
 
     public override string ToString()
     {
-        return refillorder_id + "\t\t" + product_id + "\t\t" + product_name + "\t" + machine_id +"\t\t" + order_date.ToShortDateString() + "\t\t" + product_price + "\t\t" + order_quantity +  "\t\t" + order_totalPay + "\t\t" + employee_id + "\t\t" + order_status + "\t\t" + checkedBy_employee;
+        return refillorder_id + "\t\t" + product_id + "\t\t" + product_name + "\t" + machine_id +"\t\t" + order_date.ToShortDateString() + "\t\t" + product_price + "\t\t" + order_quantity +  "\t\t" + order_totalPay + "\t\t\t" + employee_id + "\t\t\t" + order_status + "\t\t" + checkedBy_employee;
     }
 }

@@ -44,7 +44,7 @@ public class StockDB
         JOIN products ON orderdetails.product_id = products.product_id
         LEFT OUTER JOIN sold
         ON orderdetails.product_id  = sold.product_id
-        WHERE refillorders.machine_id ={id} 
+        WHERE refillorders.machine_id ={id} AND refillorders.order_status=true = 1
         GROUP BY orderdetails.product_id;").ToList();
          
         // var stocks = connection.Query<Sales>($@"WITH sold AS (SELECT saledetails.product_id, //saledetails.sale_quantity, sum(saledetails.sale_quantity) AS Sqt 
