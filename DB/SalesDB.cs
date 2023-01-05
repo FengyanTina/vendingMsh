@@ -52,7 +52,7 @@ public class SaleDB
         INNER JOIN sales s ON s.sale_id = sd.sale_id
         WHERE s.machine_id = {id}
         GROUP BY sd.product_id )
-        SELECT  p.product_id ,p.product_name,st.product_price, st.sale_quantity,st.sale_totalMoney
+        SELECT  p.product_id ,p.product_name,COALESCE(st.product_price,0) AS product_price, COALESCE(st.sale_quantity,0) AS sale_quantity,COALESCE(st.sale_totalMoney,0) AS sale_totalMoney
         FROM products p
         LEFT JOIN saledetails sd
         ON sd.product_id = p.product_id
@@ -64,8 +64,7 @@ public class SaleDB
         // INNER JOIN sales ON saledetails.sale_id = sales.sale_id)
         // INNER JOIN products ON products.product_id = saledetails.product_id)
         // WHERE sales.machine_id ={id}
-        // GROUP BY saledetails.product_id
-        // ORDER BY sale_quantity;").ToList();
+        // GROUP BY saledetails.product_id;").ToList();
         return sales;
     }
 

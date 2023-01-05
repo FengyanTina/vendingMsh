@@ -1,9 +1,7 @@
 # vendingMsh
 Vending Machine inventory DB system
 
-Introduction
-Assuming that all the machines have the same products and all initial quantity of stock is 0.
-There is no starting stock in each machine and stock management, if there is enought time, two more tables will be added on the DB data to show the stock information directly, but now it is managed in C#. 
+I
 
 Database
 []Tables

@@ -126,10 +126,10 @@ public class UserInput
         {
             if (dbManager.GetSalePerformenceByProductId(id).Count() != 0)
             {
-                Console.WriteLine("Product ID " + "\t" + "Product Name" + "\t" + " Sale Price(Kr/unit)" + "\t" + "Quantity" + "\t" + "Total Money(Kr)" + "\t" + "MachineId\n");
+                Console.WriteLine("Product ID " + "\t" + "Product Name" + "\t" + " Sale Price(Kr/unit)" + "\t" + "Quantity" + "\t" + "Total Money(Kr)" + "\t\t" + "MachineId\n");
                 foreach (var item in dbManager.GetSalePerformenceByProductId(id))
                 {
-                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.product_price + "\t\t" + item.sale_quantity + "\t\t" + item.sale_totalMoney + "\t\t" + item.machine_id);
+                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.product_price + "\t\t" + item.sale_quantity + "\t\t" + item.sale_totalMoney + "\t\t\t" + item.machine_id);
                 }
                 Console.ReadLine();
             }
@@ -602,10 +602,10 @@ public class UserInput
         {
             if (dbManager.GetOrdersByMachineId(machineId).Count() != 0)
             {
-                Console.WriteLine("\nProduct ID\tProduct Name\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tOrdered By Emplyee \t\tIsDone\t\tChcked By EmployeeID\n");
+                Console.WriteLine("\nProduct ID\tProduct Name\tProduct Price(Kr)\tQuantity\tTotalMoney(Kr)\tOrdered By Emplyee \tIsDone\t\tChcked By EmployeeID\n");
                 foreach (var item in dbManager.GetOrdersByMachineId(machineId))
                 {
-                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.product_price + "\t\t" + item.order_quantity + "\t\t" + item.order_totalPay + "\t\t" + item.employee_id + "\t\t" + item.order_status + "\t\t\t" + item.checkedBy_employee + " \n");
+                    Console.WriteLine(item.product_id + "\t\t" + item.product_name + "\t\t" + item.product_price + "\t\t" + item.order_quantity + "\t\t" + item.order_totalPay + "\t\t" + item.employee_id + "\t\t\t" + item.order_status + "\t\t\t" + item.checkedBy_employee + " \n");
                 }
             }
         }
