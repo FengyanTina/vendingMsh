@@ -99,7 +99,7 @@ SELECT saledetails.product_id,products.product_name,saledetails.product_price,su
         INNER JOIN products ON products.product_id = saledetails.product_id)
         WHERE sales.machine_id =1
         GROUP BY saledetails.product_id
-        ORDER BY sale_quantity;;
+        ORDER BY sale_quantity;
 
 [x]Get the products that not sales as well
 
